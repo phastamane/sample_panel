@@ -9,6 +9,12 @@ export default defineConfig([
   globalIgnores(['dist']),
   {
     files: ['**/*.{ts,tsx}'],
+    plugins:{
+      '@conarti/feature-sliced': featureSliced,
+    },
+    rules:{
+      ...featureSliced.configs.recommended.rules,
+    },
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
