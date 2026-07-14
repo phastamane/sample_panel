@@ -5,6 +5,7 @@ import {
   useReactTable,
   flexRender,
 } from "@tanstack/react-table";
+import { Button } from "@/components/ui/button";
 
 function Table() {
   const { data, isError, isPending } = useBoxerControllerHandleBoxerList();
