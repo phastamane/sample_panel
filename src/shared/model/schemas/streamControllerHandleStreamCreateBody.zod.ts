@@ -8,15 +8,19 @@
 import { z as zod } from "zod";
 
 export const StreamControllerHandleStreamCreateBody = zod.object({
-  data: zod.object({
-    stream: zod.object({
-      username: zod.string(),
-      password: zod.string(),
-      title: zod.string(),
-      http: zod.string(),
-      rtmp: zod.string(),
-    }),
-  }),
+  data: zod
+    .object({
+      stream: zod
+        .object({
+          username: zod.string().describe("Username"),
+          password: zod.string().describe("Password"),
+          title: zod.string().describe("Title"),
+          http: zod.string().describe("Http"),
+          rtmp: zod.string().describe("Rtmp"),
+        })
+        .describe("Stream"),
+    })
+    .describe("Data"),
 });
 
 export type StreamControllerHandleStreamCreateBody = zod.input<

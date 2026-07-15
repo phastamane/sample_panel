@@ -7,20 +7,18 @@
  */
 import { z as zod } from "zod";
 
-export const TerminalUpdateSchema = zod
-  .object({
-    data: zod
-      .object({
-        terminal: zod
-          .object({
-            title: zod.string().optional(),
-            url: zod.string().optional(),
-          })
-          .describe("Terminal"),
-      })
-      .describe("Data"),
-  })
-  .describe("Update");
+export const TerminalUpdateSchema = zod.object({
+  data: zod
+    .object({
+      terminal: zod
+        .object({
+          title: zod.string().optional().describe("Title"),
+          url: zod.string().optional().describe("Url"),
+        })
+        .describe("Terminal"),
+    })
+    .describe("Data"),
+});
 
 export type TerminalUpdateSchema = zod.input<typeof TerminalUpdateSchema>;
 export type TerminalUpdateSchemaOutput = zod.output<

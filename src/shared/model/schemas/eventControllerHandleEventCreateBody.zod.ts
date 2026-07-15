@@ -8,16 +8,20 @@
 import { z as zod } from "zod";
 
 export const EventControllerHandleEventCreateBody = zod.object({
-  data: zod.object({
-    event: zod.object({
-      tournamentId: zod.string(),
-      venueId: zod.string(),
-      blueId: zod.string(),
-      redId: zod.string(),
-      schedule: zod.iso.datetime({ offset: true }),
-      mode: zod.enum(["UNKNOWN", "MANUAL", "AUTO"]),
-    }),
-  }),
+  data: zod
+    .object({
+      event: zod
+        .object({
+          tournamentId: zod.string().describe("Tournament"),
+          venueId: zod.string().describe("Venue"),
+          blueId: zod.string().describe("Blue"),
+          redId: zod.string().describe("Red"),
+          schedule: zod.iso.datetime({ offset: true }).describe("Schedule"),
+          mode: zod.enum(["UNKNOWN", "MANUAL", "AUTO"]).describe("Mode"),
+        })
+        .describe("Event"),
+    })
+    .describe("Data"),
 });
 
 export type EventControllerHandleEventCreateBody = zod.input<

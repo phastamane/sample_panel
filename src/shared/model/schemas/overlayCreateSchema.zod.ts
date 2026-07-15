@@ -7,20 +7,18 @@
  */
 import { z as zod } from "zod";
 
-export const OverlayCreateSchema = zod
-  .object({
-    data: zod
-      .object({
-        overlay: zod
-          .object({
-            title: zod.string(),
-            url: zod.string(),
-          })
-          .describe("Overlay"),
-      })
-      .describe("Data"),
-  })
-  .describe("Create");
+export const OverlayCreateSchema = zod.object({
+  data: zod
+    .object({
+      overlay: zod
+        .object({
+          title: zod.string().describe("Title"),
+          url: zod.string().describe("Url"),
+        })
+        .describe("Overlay"),
+    })
+    .describe("Data"),
+});
 
 export type OverlayCreateSchema = zod.input<typeof OverlayCreateSchema>;
 export type OverlayCreateSchemaOutput = zod.output<typeof OverlayCreateSchema>;

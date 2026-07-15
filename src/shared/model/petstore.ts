@@ -34,62 +34,63 @@ import type {
 
 import type {
   BoxerControllerHandleBoxerListParams,
-  BoxerCreateRequestSchema,
-  BoxerCreateResponseSchema,
-  BoxerInfoResponseSchema,
-  BoxerListResponseSchema,
-  BoxerUpdateRequestSchema,
-  BoxerUpdateResponseSchema,
-  EventCancelResponseSchema,
+  BoxerCreateReply,
+  BoxerCreateSchema,
+  BoxerInfoReply,
+  BoxerListReply,
+  BoxerUpdateReply,
+  BoxerUpdateSchema,
+  EventCancelReply,
   EventControllerHandleEventListParams,
-  EventCreateRequestSchema,
-  EventCreateResponseSchema,
-  EventFinishResponseSchema,
-  EventInfoResponseSchema,
-  EventListResponseSchema,
-  EventScheduleResponseSchema,
-  EventStartResponseSchema,
-  EventUpdateRequestSchema,
-  EventUpdateResponseSchema,
+  EventCreateReply,
+  EventCreateSchema,
+  EventFinishReply,
+  EventInfoReply,
+  EventListReply,
+  EventScheduleReply,
+  EventStartReply,
+  EventUpdateReply,
+  EventUpdateSchema,
+  HealthCheckReply,
   OverlayControllerHandleOverlayListParams,
-  OverlayCreateRequestSchema,
-  OverlayCreateResponseSchema,
-  OverlayInfoResponseSchema,
-  OverlayListResponseSchema,
-  OverlayUpdateRequestSchema,
-  OverlayUpdateResponseSchema,
+  OverlayCreateReply,
+  OverlayCreateSchema,
+  OverlayInfoReply,
+  OverlayListReply,
+  OverlayUpdateReply,
+  OverlayUpdateSchema,
   StreamControllerHandleStreamListParams,
-  StreamCreateRequestSchema,
-  StreamCreateResponseSchema,
-  StreamInfoResponseSchema,
-  StreamListResponseSchema,
-  StreamUpdateRequestSchema,
-  StreamUpdateResponseSchema,
+  StreamCreateReply,
+  StreamCreateSchema,
+  StreamInfoReply,
+  StreamListReply,
+  StreamUpdateReply,
+  StreamUpdateSchema,
   TerminalControllerHandleTerminalListParams,
-  TerminalCreateRequestSchema,
-  TerminalCreateResponseSchema,
-  TerminalInfoResponseSchema,
-  TerminalListResponseSchema,
-  TerminalUpdateRequestSchema,
-  TerminalUpdateResponseSchema,
-  TournamentCancelResponseSchema,
+  TerminalCreateReply,
+  TerminalCreateSchema,
+  TerminalInfoReply,
+  TerminalListReply,
+  TerminalUpdateReply,
+  TerminalUpdateSchema,
+  TournamentCancelReply,
   TournamentControllerHandleTournamentListParams,
-  TournamentCreateRequestSchema,
-  TournamentCreateResponseSchema,
-  TournamentFinishResponseSchema,
-  TournamentInfoResponseSchema,
-  TournamentListResponseSchema,
-  TournamentScheduleResponseSchema,
-  TournamentStartResponseSchema,
-  TournamentUpdateRequestSchema,
-  TournamentUpdateResponseSchema,
+  TournamentCreateReply,
+  TournamentCreateSchema,
+  TournamentFinishReply,
+  TournamentInfoReply,
+  TournamentListReply,
+  TournamentScheduleReply,
+  TournamentStartReply,
+  TournamentUpdateReply,
+  TournamentUpdateSchema,
   VenueControllerHandleVenueListParams,
-  VenueCreateRequestSchema,
-  VenueCreateResponseSchema,
-  VenueInfoResponseSchema,
-  VenueListResponseSchema,
-  VenueUpdateRequestSchema,
-  VenueUpdateResponseSchema,
+  VenueCreateReply,
+  VenueCreateSchema,
+  VenueInfoReply,
+  VenueListReply,
+  VenueUpdateReply,
+  VenueUpdateSchema,
 } from "./schemas";
 
 import { faker } from "@faker-js/faker";
@@ -119,7 +120,7 @@ const withQueryKey = <T extends object, K>(
 };
 
 export type tournamentControllerHandleTournamentCreateResponse201 = {
-  data: TournamentCreateResponseSchema;
+  data: TournamentCreateReply;
   status: 201;
 };
 
@@ -135,7 +136,7 @@ export const getTournamentControllerHandleTournamentCreateUrl = () => {
 };
 
 export const tournamentControllerHandleTournamentCreate = async (
-  tournamentCreateRequestSchema: TournamentCreateRequestSchema,
+  tournamentCreateSchema: TournamentCreateSchema,
   options?: RequestInit,
 ): Promise<tournamentControllerHandleTournamentCreateResponse> => {
   return customFetch<tournamentControllerHandleTournamentCreateResponse>(
@@ -144,15 +145,15 @@ export const tournamentControllerHandleTournamentCreate = async (
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(tournamentCreateRequestSchema),
+      body: JSON.stringify(tournamentCreateSchema),
     },
   );
 };
 
 export const getTournamentControllerHandleTournamentCreateQueryKey = (
-  tournamentCreateRequestSchema?: TournamentCreateRequestSchema,
+  tournamentCreateSchema?: TournamentCreateSchema,
 ) => {
-  return ["POST", `/tournament/create`, tournamentCreateRequestSchema] as const;
+  return ["POST", `/tournament/create`, tournamentCreateSchema] as const;
 };
 
 export const getTournamentControllerHandleTournamentCreateQueryOptions = <
@@ -161,7 +162,7 @@ export const getTournamentControllerHandleTournamentCreateQueryOptions = <
   >,
   TError = unknown,
 >(
-  tournamentCreateRequestSchema: TournamentCreateRequestSchema,
+  tournamentCreateSchema: TournamentCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -178,13 +179,13 @@ export const getTournamentControllerHandleTournamentCreateQueryOptions = <
   const queryKey =
     queryOptions?.queryKey ??
     getTournamentControllerHandleTournamentCreateQueryKey(
-      tournamentCreateRequestSchema,
+      tournamentCreateSchema,
     );
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof tournamentControllerHandleTournamentCreate>>
   > = ({ signal }) =>
-    tournamentControllerHandleTournamentCreate(tournamentCreateRequestSchema, {
+    tournamentControllerHandleTournamentCreate(tournamentCreateSchema, {
       signal,
       ...requestOptions,
     });
@@ -207,7 +208,7 @@ export function useTournamentControllerHandleTournamentCreate<
   >,
   TError = unknown,
 >(
-  tournamentCreateRequestSchema: TournamentCreateRequestSchema,
+  tournamentCreateSchema: TournamentCreateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -238,7 +239,7 @@ export function useTournamentControllerHandleTournamentCreate<
   >,
   TError = unknown,
 >(
-  tournamentCreateRequestSchema: TournamentCreateRequestSchema,
+  tournamentCreateSchema: TournamentCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -269,7 +270,7 @@ export function useTournamentControllerHandleTournamentCreate<
   >,
   TError = unknown,
 >(
-  tournamentCreateRequestSchema: TournamentCreateRequestSchema,
+  tournamentCreateSchema: TournamentCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -291,7 +292,7 @@ export function useTournamentControllerHandleTournamentCreate<
   >,
   TError = unknown,
 >(
-  tournamentCreateRequestSchema: TournamentCreateRequestSchema,
+  tournamentCreateSchema: TournamentCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -308,7 +309,7 @@ export function useTournamentControllerHandleTournamentCreate<
 } {
   const queryOptions =
     getTournamentControllerHandleTournamentCreateQueryOptions(
-      tournamentCreateRequestSchema,
+      tournamentCreateSchema,
       options,
     );
 
@@ -322,13 +323,13 @@ export function useTournamentControllerHandleTournamentCreate<
 
 export const invalidateTournamentControllerHandleTournamentCreate = async (
   queryClient: QueryClient,
-  tournamentCreateRequestSchema: TournamentCreateRequestSchema,
+  tournamentCreateSchema: TournamentCreateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
       queryKey: getTournamentControllerHandleTournamentCreateQueryKey(
-        tournamentCreateRequestSchema,
+        tournamentCreateSchema,
       ),
     },
     options,
@@ -338,7 +339,7 @@ export const invalidateTournamentControllerHandleTournamentCreate = async (
 };
 
 export type tournamentControllerHandleTournamentListResponse200 = {
-  data: TournamentListResponseSchema;
+  data: TournamentListReply;
   status: 200;
 };
 
@@ -1063,7 +1064,7 @@ export function useTournamentControllerHandleTournamentListSuspenseInfinite<
 }
 
 export type tournamentControllerHandleTournamentInfoResponse200 = {
-  data: TournamentInfoResponseSchema;
+  data: TournamentInfoReply;
   status: 200;
 };
 
@@ -1406,7 +1407,7 @@ export function useTournamentControllerHandleTournamentInfoSuspense<
 }
 
 export type tournamentControllerHandleTournamentUpdateResponse200 = {
-  data: TournamentUpdateResponseSchema;
+  data: TournamentUpdateReply;
   status: 200;
 };
 
@@ -1425,7 +1426,7 @@ export const getTournamentControllerHandleTournamentUpdateUrl = (
 
 export const tournamentControllerHandleTournamentUpdate = async (
   tournamentId: string,
-  tournamentUpdateRequestSchema: TournamentUpdateRequestSchema,
+  tournamentUpdateSchema: TournamentUpdateSchema,
   options?: RequestInit,
 ): Promise<tournamentControllerHandleTournamentUpdateResponse> => {
   return customFetch<tournamentControllerHandleTournamentUpdateResponse>(
@@ -1434,19 +1435,19 @@ export const tournamentControllerHandleTournamentUpdate = async (
       ...options,
       method: "PATCH",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(tournamentUpdateRequestSchema),
+      body: JSON.stringify(tournamentUpdateSchema),
     },
   );
 };
 
 export const getTournamentControllerHandleTournamentUpdateQueryKey = (
   tournamentId: string,
-  tournamentUpdateRequestSchema?: TournamentUpdateRequestSchema,
+  tournamentUpdateSchema?: TournamentUpdateSchema,
 ) => {
   return [
     "PATCH",
     `/tournament/${tournamentId}/update`,
-    tournamentUpdateRequestSchema,
+    tournamentUpdateSchema,
   ] as const;
 };
 
@@ -1457,7 +1458,7 @@ export const getTournamentControllerHandleTournamentUpdateQueryOptions = <
   TError = unknown,
 >(
   tournamentId: string,
-  tournamentUpdateRequestSchema: TournamentUpdateRequestSchema,
+  tournamentUpdateSchema: TournamentUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -1475,7 +1476,7 @@ export const getTournamentControllerHandleTournamentUpdateQueryOptions = <
     queryOptions?.queryKey ??
     getTournamentControllerHandleTournamentUpdateQueryKey(
       tournamentId,
-      tournamentUpdateRequestSchema,
+      tournamentUpdateSchema,
     );
 
   const queryFn: QueryFunction<
@@ -1483,7 +1484,7 @@ export const getTournamentControllerHandleTournamentUpdateQueryOptions = <
   > = ({ signal }) =>
     tournamentControllerHandleTournamentUpdate(
       tournamentId,
-      tournamentUpdateRequestSchema,
+      tournamentUpdateSchema,
       { signal, ...requestOptions },
     );
 
@@ -1511,7 +1512,7 @@ export function useTournamentControllerHandleTournamentUpdate<
   TError = unknown,
 >(
   tournamentId: string,
-  tournamentUpdateRequestSchema: TournamentUpdateRequestSchema,
+  tournamentUpdateSchema: TournamentUpdateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -1543,7 +1544,7 @@ export function useTournamentControllerHandleTournamentUpdate<
   TError = unknown,
 >(
   tournamentId: string,
-  tournamentUpdateRequestSchema: TournamentUpdateRequestSchema,
+  tournamentUpdateSchema: TournamentUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -1575,7 +1576,7 @@ export function useTournamentControllerHandleTournamentUpdate<
   TError = unknown,
 >(
   tournamentId: string,
-  tournamentUpdateRequestSchema: TournamentUpdateRequestSchema,
+  tournamentUpdateSchema: TournamentUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -1598,7 +1599,7 @@ export function useTournamentControllerHandleTournamentUpdate<
   TError = unknown,
 >(
   tournamentId: string,
-  tournamentUpdateRequestSchema: TournamentUpdateRequestSchema,
+  tournamentUpdateSchema: TournamentUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -1616,7 +1617,7 @@ export function useTournamentControllerHandleTournamentUpdate<
   const queryOptions =
     getTournamentControllerHandleTournamentUpdateQueryOptions(
       tournamentId,
-      tournamentUpdateRequestSchema,
+      tournamentUpdateSchema,
       options,
     );
 
@@ -1631,14 +1632,14 @@ export function useTournamentControllerHandleTournamentUpdate<
 export const invalidateTournamentControllerHandleTournamentUpdate = async (
   queryClient: QueryClient,
   tournamentId: string,
-  tournamentUpdateRequestSchema: TournamentUpdateRequestSchema,
+  tournamentUpdateSchema: TournamentUpdateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
       queryKey: getTournamentControllerHandleTournamentUpdateQueryKey(
         tournamentId,
-        tournamentUpdateRequestSchema,
+        tournamentUpdateSchema,
       ),
     },
     options,
@@ -1648,7 +1649,7 @@ export const invalidateTournamentControllerHandleTournamentUpdate = async (
 };
 
 export type tournamentControllerHandleTournamentScheduleResponse202 = {
-  data: TournamentScheduleResponseSchema;
+  data: TournamentScheduleReply;
   status: 202;
 };
 
@@ -1884,7 +1885,7 @@ export const invalidateTournamentControllerHandleTournamentSchedule = async (
 };
 
 export type tournamentControllerHandleTournamentStartResponse202 = {
-  data: TournamentStartResponseSchema;
+  data: TournamentStartReply;
   status: 202;
 };
 
@@ -2090,7 +2091,7 @@ export const invalidateTournamentControllerHandleTournamentStart = async (
 };
 
 export type tournamentControllerHandleTournamentFinishResponse202 = {
-  data: TournamentFinishResponseSchema;
+  data: TournamentFinishReply;
   status: 202;
 };
 
@@ -2311,7 +2312,7 @@ export const invalidateTournamentControllerHandleTournamentFinish = async (
 };
 
 export type tournamentControllerHandleTournamentCancelResponse202 = {
-  data: TournamentCancelResponseSchema;
+  data: TournamentCancelReply;
   status: 202;
 };
 
@@ -2532,7 +2533,7 @@ export const invalidateTournamentControllerHandleTournamentCancel = async (
 };
 
 export type terminalControllerHandleTerminalCreateResponse201 = {
-  data: TerminalCreateResponseSchema;
+  data: TerminalCreateReply;
   status: 201;
 };
 
@@ -2548,7 +2549,7 @@ export const getTerminalControllerHandleTerminalCreateUrl = () => {
 };
 
 export const terminalControllerHandleTerminalCreate = async (
-  terminalCreateRequestSchema: TerminalCreateRequestSchema,
+  terminalCreateSchema: TerminalCreateSchema,
   options?: RequestInit,
 ): Promise<terminalControllerHandleTerminalCreateResponse> => {
   return customFetch<terminalControllerHandleTerminalCreateResponse>(
@@ -2557,22 +2558,22 @@ export const terminalControllerHandleTerminalCreate = async (
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(terminalCreateRequestSchema),
+      body: JSON.stringify(terminalCreateSchema),
     },
   );
 };
 
 export const getTerminalControllerHandleTerminalCreateQueryKey = (
-  terminalCreateRequestSchema?: TerminalCreateRequestSchema,
+  terminalCreateSchema?: TerminalCreateSchema,
 ) => {
-  return ["POST", `/terminal/create`, terminalCreateRequestSchema] as const;
+  return ["POST", `/terminal/create`, terminalCreateSchema] as const;
 };
 
 export const getTerminalControllerHandleTerminalCreateQueryOptions = <
   TData = Awaited<ReturnType<typeof terminalControllerHandleTerminalCreate>>,
   TError = unknown,
 >(
-  terminalCreateRequestSchema: TerminalCreateRequestSchema,
+  terminalCreateSchema: TerminalCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -2588,14 +2589,12 @@ export const getTerminalControllerHandleTerminalCreateQueryOptions = <
 
   const queryKey =
     queryOptions?.queryKey ??
-    getTerminalControllerHandleTerminalCreateQueryKey(
-      terminalCreateRequestSchema,
-    );
+    getTerminalControllerHandleTerminalCreateQueryKey(terminalCreateSchema);
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof terminalControllerHandleTerminalCreate>>
   > = ({ signal }) =>
-    terminalControllerHandleTerminalCreate(terminalCreateRequestSchema, {
+    terminalControllerHandleTerminalCreate(terminalCreateSchema, {
       signal,
       ...requestOptions,
     });
@@ -2616,7 +2615,7 @@ export function useTerminalControllerHandleTerminalCreate<
   TData = Awaited<ReturnType<typeof terminalControllerHandleTerminalCreate>>,
   TError = unknown,
 >(
-  terminalCreateRequestSchema: TerminalCreateRequestSchema,
+  terminalCreateSchema: TerminalCreateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -2643,7 +2642,7 @@ export function useTerminalControllerHandleTerminalCreate<
   TData = Awaited<ReturnType<typeof terminalControllerHandleTerminalCreate>>,
   TError = unknown,
 >(
-  terminalCreateRequestSchema: TerminalCreateRequestSchema,
+  terminalCreateSchema: TerminalCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -2670,7 +2669,7 @@ export function useTerminalControllerHandleTerminalCreate<
   TData = Awaited<ReturnType<typeof terminalControllerHandleTerminalCreate>>,
   TError = unknown,
 >(
-  terminalCreateRequestSchema: TerminalCreateRequestSchema,
+  terminalCreateSchema: TerminalCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -2690,7 +2689,7 @@ export function useTerminalControllerHandleTerminalCreate<
   TData = Awaited<ReturnType<typeof terminalControllerHandleTerminalCreate>>,
   TError = unknown,
 >(
-  terminalCreateRequestSchema: TerminalCreateRequestSchema,
+  terminalCreateSchema: TerminalCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -2706,7 +2705,7 @@ export function useTerminalControllerHandleTerminalCreate<
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
   const queryOptions = getTerminalControllerHandleTerminalCreateQueryOptions(
-    terminalCreateRequestSchema,
+    terminalCreateSchema,
     options,
   );
 
@@ -2720,14 +2719,13 @@ export function useTerminalControllerHandleTerminalCreate<
 
 export const invalidateTerminalControllerHandleTerminalCreate = async (
   queryClient: QueryClient,
-  terminalCreateRequestSchema: TerminalCreateRequestSchema,
+  terminalCreateSchema: TerminalCreateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
-      queryKey: getTerminalControllerHandleTerminalCreateQueryKey(
-        terminalCreateRequestSchema,
-      ),
+      queryKey:
+        getTerminalControllerHandleTerminalCreateQueryKey(terminalCreateSchema),
     },
     options,
   );
@@ -2736,7 +2734,7 @@ export const invalidateTerminalControllerHandleTerminalCreate = async (
 };
 
 export type terminalControllerHandleTerminalListResponse200 = {
-  data: TerminalListResponseSchema;
+  data: TerminalListReply;
   status: 200;
 };
 
@@ -3445,7 +3443,7 @@ export function useTerminalControllerHandleTerminalListSuspenseInfinite<
 }
 
 export type terminalControllerHandleTerminalInfoResponse200 = {
-  data: TerminalInfoResponseSchema;
+  data: TerminalInfoReply;
   status: 200;
 };
 
@@ -3782,7 +3780,7 @@ export function useTerminalControllerHandleTerminalInfoSuspense<
 }
 
 export type terminalControllerHandleTerminalUpdateResponse200 = {
-  data: TerminalUpdateResponseSchema;
+  data: TerminalUpdateReply;
   status: 200;
 };
 
@@ -3801,7 +3799,7 @@ export const getTerminalControllerHandleTerminalUpdateUrl = (
 
 export const terminalControllerHandleTerminalUpdate = async (
   terminalId: string,
-  terminalUpdateRequestSchema: TerminalUpdateRequestSchema,
+  terminalUpdateSchema: TerminalUpdateSchema,
   options?: RequestInit,
 ): Promise<terminalControllerHandleTerminalUpdateResponse> => {
   return customFetch<terminalControllerHandleTerminalUpdateResponse>(
@@ -3810,19 +3808,19 @@ export const terminalControllerHandleTerminalUpdate = async (
       ...options,
       method: "PATCH",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(terminalUpdateRequestSchema),
+      body: JSON.stringify(terminalUpdateSchema),
     },
   );
 };
 
 export const getTerminalControllerHandleTerminalUpdateQueryKey = (
   terminalId: string,
-  terminalUpdateRequestSchema?: TerminalUpdateRequestSchema,
+  terminalUpdateSchema?: TerminalUpdateSchema,
 ) => {
   return [
     "PATCH",
     `/terminal/${terminalId}/update`,
-    terminalUpdateRequestSchema,
+    terminalUpdateSchema,
   ] as const;
 };
 
@@ -3831,7 +3829,7 @@ export const getTerminalControllerHandleTerminalUpdateQueryOptions = <
   TError = unknown,
 >(
   terminalId: string,
-  terminalUpdateRequestSchema: TerminalUpdateRequestSchema,
+  terminalUpdateSchema: TerminalUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -3849,17 +3847,16 @@ export const getTerminalControllerHandleTerminalUpdateQueryOptions = <
     queryOptions?.queryKey ??
     getTerminalControllerHandleTerminalUpdateQueryKey(
       terminalId,
-      terminalUpdateRequestSchema,
+      terminalUpdateSchema,
     );
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof terminalControllerHandleTerminalUpdate>>
   > = ({ signal }) =>
-    terminalControllerHandleTerminalUpdate(
-      terminalId,
-      terminalUpdateRequestSchema,
-      { signal, ...requestOptions },
-    );
+    terminalControllerHandleTerminalUpdate(terminalId, terminalUpdateSchema, {
+      signal,
+      ...requestOptions,
+    });
 
   return {
     queryKey,
@@ -3883,7 +3880,7 @@ export function useTerminalControllerHandleTerminalUpdate<
   TError = unknown,
 >(
   terminalId: string,
-  terminalUpdateRequestSchema: TerminalUpdateRequestSchema,
+  terminalUpdateSchema: TerminalUpdateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -3911,7 +3908,7 @@ export function useTerminalControllerHandleTerminalUpdate<
   TError = unknown,
 >(
   terminalId: string,
-  terminalUpdateRequestSchema: TerminalUpdateRequestSchema,
+  terminalUpdateSchema: TerminalUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -3939,7 +3936,7 @@ export function useTerminalControllerHandleTerminalUpdate<
   TError = unknown,
 >(
   terminalId: string,
-  terminalUpdateRequestSchema: TerminalUpdateRequestSchema,
+  terminalUpdateSchema: TerminalUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -3960,7 +3957,7 @@ export function useTerminalControllerHandleTerminalUpdate<
   TError = unknown,
 >(
   terminalId: string,
-  terminalUpdateRequestSchema: TerminalUpdateRequestSchema,
+  terminalUpdateSchema: TerminalUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -3977,7 +3974,7 @@ export function useTerminalControllerHandleTerminalUpdate<
 } {
   const queryOptions = getTerminalControllerHandleTerminalUpdateQueryOptions(
     terminalId,
-    terminalUpdateRequestSchema,
+    terminalUpdateSchema,
     options,
   );
 
@@ -3992,14 +3989,14 @@ export function useTerminalControllerHandleTerminalUpdate<
 export const invalidateTerminalControllerHandleTerminalUpdate = async (
   queryClient: QueryClient,
   terminalId: string,
-  terminalUpdateRequestSchema: TerminalUpdateRequestSchema,
+  terminalUpdateSchema: TerminalUpdateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
       queryKey: getTerminalControllerHandleTerminalUpdateQueryKey(
         terminalId,
-        terminalUpdateRequestSchema,
+        terminalUpdateSchema,
       ),
     },
     options,
@@ -4009,7 +4006,7 @@ export const invalidateTerminalControllerHandleTerminalUpdate = async (
 };
 
 export type overlayControllerHandleOverlayCreateResponse201 = {
-  data: OverlayCreateResponseSchema;
+  data: OverlayCreateReply;
   status: 201;
 };
 
@@ -4025,7 +4022,7 @@ export const getOverlayControllerHandleOverlayCreateUrl = () => {
 };
 
 export const overlayControllerHandleOverlayCreate = async (
-  overlayCreateRequestSchema: OverlayCreateRequestSchema,
+  overlayCreateSchema: OverlayCreateSchema,
   options?: RequestInit,
 ): Promise<overlayControllerHandleOverlayCreateResponse> => {
   return customFetch<overlayControllerHandleOverlayCreateResponse>(
@@ -4034,22 +4031,22 @@ export const overlayControllerHandleOverlayCreate = async (
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(overlayCreateRequestSchema),
+      body: JSON.stringify(overlayCreateSchema),
     },
   );
 };
 
 export const getOverlayControllerHandleOverlayCreateQueryKey = (
-  overlayCreateRequestSchema?: OverlayCreateRequestSchema,
+  overlayCreateSchema?: OverlayCreateSchema,
 ) => {
-  return ["POST", `/overlay/create`, overlayCreateRequestSchema] as const;
+  return ["POST", `/overlay/create`, overlayCreateSchema] as const;
 };
 
 export const getOverlayControllerHandleOverlayCreateQueryOptions = <
   TData = Awaited<ReturnType<typeof overlayControllerHandleOverlayCreate>>,
   TError = unknown,
 >(
-  overlayCreateRequestSchema: OverlayCreateRequestSchema,
+  overlayCreateSchema: OverlayCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -4065,12 +4062,12 @@ export const getOverlayControllerHandleOverlayCreateQueryOptions = <
 
   const queryKey =
     queryOptions?.queryKey ??
-    getOverlayControllerHandleOverlayCreateQueryKey(overlayCreateRequestSchema);
+    getOverlayControllerHandleOverlayCreateQueryKey(overlayCreateSchema);
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof overlayControllerHandleOverlayCreate>>
   > = ({ signal }) =>
-    overlayControllerHandleOverlayCreate(overlayCreateRequestSchema, {
+    overlayControllerHandleOverlayCreate(overlayCreateSchema, {
       signal,
       ...requestOptions,
     });
@@ -4091,7 +4088,7 @@ export function useOverlayControllerHandleOverlayCreate<
   TData = Awaited<ReturnType<typeof overlayControllerHandleOverlayCreate>>,
   TError = unknown,
 >(
-  overlayCreateRequestSchema: OverlayCreateRequestSchema,
+  overlayCreateSchema: OverlayCreateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -4118,7 +4115,7 @@ export function useOverlayControllerHandleOverlayCreate<
   TData = Awaited<ReturnType<typeof overlayControllerHandleOverlayCreate>>,
   TError = unknown,
 >(
-  overlayCreateRequestSchema: OverlayCreateRequestSchema,
+  overlayCreateSchema: OverlayCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -4145,7 +4142,7 @@ export function useOverlayControllerHandleOverlayCreate<
   TData = Awaited<ReturnType<typeof overlayControllerHandleOverlayCreate>>,
   TError = unknown,
 >(
-  overlayCreateRequestSchema: OverlayCreateRequestSchema,
+  overlayCreateSchema: OverlayCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -4165,7 +4162,7 @@ export function useOverlayControllerHandleOverlayCreate<
   TData = Awaited<ReturnType<typeof overlayControllerHandleOverlayCreate>>,
   TError = unknown,
 >(
-  overlayCreateRequestSchema: OverlayCreateRequestSchema,
+  overlayCreateSchema: OverlayCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -4181,7 +4178,7 @@ export function useOverlayControllerHandleOverlayCreate<
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
   const queryOptions = getOverlayControllerHandleOverlayCreateQueryOptions(
-    overlayCreateRequestSchema,
+    overlayCreateSchema,
     options,
   );
 
@@ -4195,14 +4192,13 @@ export function useOverlayControllerHandleOverlayCreate<
 
 export const invalidateOverlayControllerHandleOverlayCreate = async (
   queryClient: QueryClient,
-  overlayCreateRequestSchema: OverlayCreateRequestSchema,
+  overlayCreateSchema: OverlayCreateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
-      queryKey: getOverlayControllerHandleOverlayCreateQueryKey(
-        overlayCreateRequestSchema,
-      ),
+      queryKey:
+        getOverlayControllerHandleOverlayCreateQueryKey(overlayCreateSchema),
     },
     options,
   );
@@ -4211,7 +4207,7 @@ export const invalidateOverlayControllerHandleOverlayCreate = async (
 };
 
 export type overlayControllerHandleOverlayListResponse200 = {
-  data: OverlayListResponseSchema;
+  data: OverlayListReply;
   status: 200;
 };
 
@@ -4914,7 +4910,7 @@ export function useOverlayControllerHandleOverlayListSuspenseInfinite<
 }
 
 export type overlayControllerHandleOverlayInfoResponse200 = {
-  data: OverlayInfoResponseSchema;
+  data: OverlayInfoReply;
   status: 200;
 };
 
@@ -5250,7 +5246,7 @@ export function useOverlayControllerHandleOverlayInfoSuspense<
 }
 
 export type overlayControllerHandleOverlayUpdateResponse200 = {
-  data: OverlayUpdateResponseSchema;
+  data: OverlayUpdateReply;
   status: 200;
 };
 
@@ -5269,7 +5265,7 @@ export const getOverlayControllerHandleOverlayUpdateUrl = (
 
 export const overlayControllerHandleOverlayUpdate = async (
   overlayId: string,
-  overlayUpdateRequestSchema: OverlayUpdateRequestSchema,
+  overlayUpdateSchema: OverlayUpdateSchema,
   options?: RequestInit,
 ): Promise<overlayControllerHandleOverlayUpdateResponse> => {
   return customFetch<overlayControllerHandleOverlayUpdateResponse>(
@@ -5278,19 +5274,19 @@ export const overlayControllerHandleOverlayUpdate = async (
       ...options,
       method: "PATCH",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(overlayUpdateRequestSchema),
+      body: JSON.stringify(overlayUpdateSchema),
     },
   );
 };
 
 export const getOverlayControllerHandleOverlayUpdateQueryKey = (
   overlayId: string,
-  overlayUpdateRequestSchema?: OverlayUpdateRequestSchema,
+  overlayUpdateSchema?: OverlayUpdateSchema,
 ) => {
   return [
     "PATCH",
     `/overlay/${overlayId}/update`,
-    overlayUpdateRequestSchema,
+    overlayUpdateSchema,
   ] as const;
 };
 
@@ -5299,7 +5295,7 @@ export const getOverlayControllerHandleOverlayUpdateQueryOptions = <
   TError = unknown,
 >(
   overlayId: string,
-  overlayUpdateRequestSchema: OverlayUpdateRequestSchema,
+  overlayUpdateSchema: OverlayUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -5317,17 +5313,16 @@ export const getOverlayControllerHandleOverlayUpdateQueryOptions = <
     queryOptions?.queryKey ??
     getOverlayControllerHandleOverlayUpdateQueryKey(
       overlayId,
-      overlayUpdateRequestSchema,
+      overlayUpdateSchema,
     );
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof overlayControllerHandleOverlayUpdate>>
   > = ({ signal }) =>
-    overlayControllerHandleOverlayUpdate(
-      overlayId,
-      overlayUpdateRequestSchema,
-      { signal, ...requestOptions },
-    );
+    overlayControllerHandleOverlayUpdate(overlayId, overlayUpdateSchema, {
+      signal,
+      ...requestOptions,
+    });
 
   return {
     queryKey,
@@ -5351,7 +5346,7 @@ export function useOverlayControllerHandleOverlayUpdate<
   TError = unknown,
 >(
   overlayId: string,
-  overlayUpdateRequestSchema: OverlayUpdateRequestSchema,
+  overlayUpdateSchema: OverlayUpdateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -5379,7 +5374,7 @@ export function useOverlayControllerHandleOverlayUpdate<
   TError = unknown,
 >(
   overlayId: string,
-  overlayUpdateRequestSchema: OverlayUpdateRequestSchema,
+  overlayUpdateSchema: OverlayUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -5407,7 +5402,7 @@ export function useOverlayControllerHandleOverlayUpdate<
   TError = unknown,
 >(
   overlayId: string,
-  overlayUpdateRequestSchema: OverlayUpdateRequestSchema,
+  overlayUpdateSchema: OverlayUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -5428,7 +5423,7 @@ export function useOverlayControllerHandleOverlayUpdate<
   TError = unknown,
 >(
   overlayId: string,
-  overlayUpdateRequestSchema: OverlayUpdateRequestSchema,
+  overlayUpdateSchema: OverlayUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -5445,7 +5440,7 @@ export function useOverlayControllerHandleOverlayUpdate<
 } {
   const queryOptions = getOverlayControllerHandleOverlayUpdateQueryOptions(
     overlayId,
-    overlayUpdateRequestSchema,
+    overlayUpdateSchema,
     options,
   );
 
@@ -5460,14 +5455,14 @@ export function useOverlayControllerHandleOverlayUpdate<
 export const invalidateOverlayControllerHandleOverlayUpdate = async (
   queryClient: QueryClient,
   overlayId: string,
-  overlayUpdateRequestSchema: OverlayUpdateRequestSchema,
+  overlayUpdateSchema: OverlayUpdateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
       queryKey: getOverlayControllerHandleOverlayUpdateQueryKey(
         overlayId,
-        overlayUpdateRequestSchema,
+        overlayUpdateSchema,
       ),
     },
     options,
@@ -5477,7 +5472,7 @@ export const invalidateOverlayControllerHandleOverlayUpdate = async (
 };
 
 export type healthControllerHandleHealthCheckResponse200 = {
-  data: void;
+  data: HealthCheckReply;
   status: 200;
 };
 
@@ -5777,7 +5772,7 @@ export function useHealthControllerHandleHealthCheckSuspense<
 }
 
 export type streamControllerHandleStreamCreateResponse201 = {
-  data: StreamCreateResponseSchema;
+  data: StreamCreateReply;
   status: 201;
 };
 
@@ -5793,7 +5788,7 @@ export const getStreamControllerHandleStreamCreateUrl = () => {
 };
 
 export const streamControllerHandleStreamCreate = async (
-  streamCreateRequestSchema: StreamCreateRequestSchema,
+  streamCreateSchema: StreamCreateSchema,
   options?: RequestInit,
 ): Promise<streamControllerHandleStreamCreateResponse> => {
   return customFetch<streamControllerHandleStreamCreateResponse>(
@@ -5802,22 +5797,22 @@ export const streamControllerHandleStreamCreate = async (
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(streamCreateRequestSchema),
+      body: JSON.stringify(streamCreateSchema),
     },
   );
 };
 
 export const getStreamControllerHandleStreamCreateQueryKey = (
-  streamCreateRequestSchema?: StreamCreateRequestSchema,
+  streamCreateSchema?: StreamCreateSchema,
 ) => {
-  return ["POST", `/stream/create`, streamCreateRequestSchema] as const;
+  return ["POST", `/stream/create`, streamCreateSchema] as const;
 };
 
 export const getStreamControllerHandleStreamCreateQueryOptions = <
   TData = Awaited<ReturnType<typeof streamControllerHandleStreamCreate>>,
   TError = unknown,
 >(
-  streamCreateRequestSchema: StreamCreateRequestSchema,
+  streamCreateSchema: StreamCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -5833,12 +5828,12 @@ export const getStreamControllerHandleStreamCreateQueryOptions = <
 
   const queryKey =
     queryOptions?.queryKey ??
-    getStreamControllerHandleStreamCreateQueryKey(streamCreateRequestSchema);
+    getStreamControllerHandleStreamCreateQueryKey(streamCreateSchema);
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof streamControllerHandleStreamCreate>>
   > = ({ signal }) =>
-    streamControllerHandleStreamCreate(streamCreateRequestSchema, {
+    streamControllerHandleStreamCreate(streamCreateSchema, {
       signal,
       ...requestOptions,
     });
@@ -5859,7 +5854,7 @@ export function useStreamControllerHandleStreamCreate<
   TData = Awaited<ReturnType<typeof streamControllerHandleStreamCreate>>,
   TError = unknown,
 >(
-  streamCreateRequestSchema: StreamCreateRequestSchema,
+  streamCreateSchema: StreamCreateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -5886,7 +5881,7 @@ export function useStreamControllerHandleStreamCreate<
   TData = Awaited<ReturnType<typeof streamControllerHandleStreamCreate>>,
   TError = unknown,
 >(
-  streamCreateRequestSchema: StreamCreateRequestSchema,
+  streamCreateSchema: StreamCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -5913,7 +5908,7 @@ export function useStreamControllerHandleStreamCreate<
   TData = Awaited<ReturnType<typeof streamControllerHandleStreamCreate>>,
   TError = unknown,
 >(
-  streamCreateRequestSchema: StreamCreateRequestSchema,
+  streamCreateSchema: StreamCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -5933,7 +5928,7 @@ export function useStreamControllerHandleStreamCreate<
   TData = Awaited<ReturnType<typeof streamControllerHandleStreamCreate>>,
   TError = unknown,
 >(
-  streamCreateRequestSchema: StreamCreateRequestSchema,
+  streamCreateSchema: StreamCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -5949,7 +5944,7 @@ export function useStreamControllerHandleStreamCreate<
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
   const queryOptions = getStreamControllerHandleStreamCreateQueryOptions(
-    streamCreateRequestSchema,
+    streamCreateSchema,
     options,
   );
 
@@ -5963,14 +5958,13 @@ export function useStreamControllerHandleStreamCreate<
 
 export const invalidateStreamControllerHandleStreamCreate = async (
   queryClient: QueryClient,
-  streamCreateRequestSchema: StreamCreateRequestSchema,
+  streamCreateSchema: StreamCreateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
-      queryKey: getStreamControllerHandleStreamCreateQueryKey(
-        streamCreateRequestSchema,
-      ),
+      queryKey:
+        getStreamControllerHandleStreamCreateQueryKey(streamCreateSchema),
     },
     options,
   );
@@ -5979,7 +5973,7 @@ export const invalidateStreamControllerHandleStreamCreate = async (
 };
 
 export type streamControllerHandleStreamListResponse200 = {
-  data: StreamListResponseSchema;
+  data: StreamListReply;
   status: 200;
 };
 
@@ -6685,7 +6679,7 @@ export function useStreamControllerHandleStreamListSuspenseInfinite<
 }
 
 export type streamControllerHandleStreamInfoResponse200 = {
-  data: StreamInfoResponseSchema;
+  data: StreamInfoReply;
   status: 200;
 };
 
@@ -7014,7 +7008,7 @@ export function useStreamControllerHandleStreamInfoSuspense<
 }
 
 export type streamControllerHandleStreamUpdateResponse200 = {
-  data: StreamUpdateResponseSchema;
+  data: StreamUpdateReply;
   status: 200;
 };
 
@@ -7031,7 +7025,7 @@ export const getStreamControllerHandleStreamUpdateUrl = (streamId: string) => {
 
 export const streamControllerHandleStreamUpdate = async (
   streamId: string,
-  streamUpdateRequestSchema: StreamUpdateRequestSchema,
+  streamUpdateSchema: StreamUpdateSchema,
   options?: RequestInit,
 ): Promise<streamControllerHandleStreamUpdateResponse> => {
   return customFetch<streamControllerHandleStreamUpdateResponse>(
@@ -7040,20 +7034,16 @@ export const streamControllerHandleStreamUpdate = async (
       ...options,
       method: "PATCH",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(streamUpdateRequestSchema),
+      body: JSON.stringify(streamUpdateSchema),
     },
   );
 };
 
 export const getStreamControllerHandleStreamUpdateQueryKey = (
   streamId: string,
-  streamUpdateRequestSchema?: StreamUpdateRequestSchema,
+  streamUpdateSchema?: StreamUpdateSchema,
 ) => {
-  return [
-    "PATCH",
-    `/stream/${streamId}/update`,
-    streamUpdateRequestSchema,
-  ] as const;
+  return ["PATCH", `/stream/${streamId}/update`, streamUpdateSchema] as const;
 };
 
 export const getStreamControllerHandleStreamUpdateQueryOptions = <
@@ -7061,7 +7051,7 @@ export const getStreamControllerHandleStreamUpdateQueryOptions = <
   TError = unknown,
 >(
   streamId: string,
-  streamUpdateRequestSchema: StreamUpdateRequestSchema,
+  streamUpdateSchema: StreamUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -7077,15 +7067,12 @@ export const getStreamControllerHandleStreamUpdateQueryOptions = <
 
   const queryKey =
     queryOptions?.queryKey ??
-    getStreamControllerHandleStreamUpdateQueryKey(
-      streamId,
-      streamUpdateRequestSchema,
-    );
+    getStreamControllerHandleStreamUpdateQueryKey(streamId, streamUpdateSchema);
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof streamControllerHandleStreamUpdate>>
   > = ({ signal }) =>
-    streamControllerHandleStreamUpdate(streamId, streamUpdateRequestSchema, {
+    streamControllerHandleStreamUpdate(streamId, streamUpdateSchema, {
       signal,
       ...requestOptions,
     });
@@ -7112,7 +7099,7 @@ export function useStreamControllerHandleStreamUpdate<
   TError = unknown,
 >(
   streamId: string,
-  streamUpdateRequestSchema: StreamUpdateRequestSchema,
+  streamUpdateSchema: StreamUpdateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -7140,7 +7127,7 @@ export function useStreamControllerHandleStreamUpdate<
   TError = unknown,
 >(
   streamId: string,
-  streamUpdateRequestSchema: StreamUpdateRequestSchema,
+  streamUpdateSchema: StreamUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -7168,7 +7155,7 @@ export function useStreamControllerHandleStreamUpdate<
   TError = unknown,
 >(
   streamId: string,
-  streamUpdateRequestSchema: StreamUpdateRequestSchema,
+  streamUpdateSchema: StreamUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -7189,7 +7176,7 @@ export function useStreamControllerHandleStreamUpdate<
   TError = unknown,
 >(
   streamId: string,
-  streamUpdateRequestSchema: StreamUpdateRequestSchema,
+  streamUpdateSchema: StreamUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -7206,7 +7193,7 @@ export function useStreamControllerHandleStreamUpdate<
 } {
   const queryOptions = getStreamControllerHandleStreamUpdateQueryOptions(
     streamId,
-    streamUpdateRequestSchema,
+    streamUpdateSchema,
     options,
   );
 
@@ -7221,14 +7208,14 @@ export function useStreamControllerHandleStreamUpdate<
 export const invalidateStreamControllerHandleStreamUpdate = async (
   queryClient: QueryClient,
   streamId: string,
-  streamUpdateRequestSchema: StreamUpdateRequestSchema,
+  streamUpdateSchema: StreamUpdateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
       queryKey: getStreamControllerHandleStreamUpdateQueryKey(
         streamId,
-        streamUpdateRequestSchema,
+        streamUpdateSchema,
       ),
     },
     options,
@@ -7238,7 +7225,7 @@ export const invalidateStreamControllerHandleStreamUpdate = async (
 };
 
 export type boxerControllerHandleBoxerCreateResponse201 = {
-  data: BoxerCreateResponseSchema;
+  data: BoxerCreateReply;
   status: 201;
 };
 
@@ -7254,7 +7241,7 @@ export const getBoxerControllerHandleBoxerCreateUrl = () => {
 };
 
 export const boxerControllerHandleBoxerCreate = async (
-  boxerCreateRequestSchema: BoxerCreateRequestSchema,
+  boxerCreateSchema: BoxerCreateSchema,
   options?: RequestInit,
 ): Promise<boxerControllerHandleBoxerCreateResponse> => {
   return customFetch<boxerControllerHandleBoxerCreateResponse>(
@@ -7263,22 +7250,22 @@ export const boxerControllerHandleBoxerCreate = async (
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(boxerCreateRequestSchema),
+      body: JSON.stringify(boxerCreateSchema),
     },
   );
 };
 
 export const getBoxerControllerHandleBoxerCreateQueryKey = (
-  boxerCreateRequestSchema?: BoxerCreateRequestSchema,
+  boxerCreateSchema?: BoxerCreateSchema,
 ) => {
-  return ["POST", `/boxer/create`, boxerCreateRequestSchema] as const;
+  return ["POST", `/boxer/create`, boxerCreateSchema] as const;
 };
 
 export const getBoxerControllerHandleBoxerCreateQueryOptions = <
   TData = Awaited<ReturnType<typeof boxerControllerHandleBoxerCreate>>,
   TError = unknown,
 >(
-  boxerCreateRequestSchema: BoxerCreateRequestSchema,
+  boxerCreateSchema: BoxerCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -7294,12 +7281,12 @@ export const getBoxerControllerHandleBoxerCreateQueryOptions = <
 
   const queryKey =
     queryOptions?.queryKey ??
-    getBoxerControllerHandleBoxerCreateQueryKey(boxerCreateRequestSchema);
+    getBoxerControllerHandleBoxerCreateQueryKey(boxerCreateSchema);
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof boxerControllerHandleBoxerCreate>>
   > = ({ signal }) =>
-    boxerControllerHandleBoxerCreate(boxerCreateRequestSchema, {
+    boxerControllerHandleBoxerCreate(boxerCreateSchema, {
       signal,
       ...requestOptions,
     });
@@ -7320,7 +7307,7 @@ export function useBoxerControllerHandleBoxerCreate<
   TData = Awaited<ReturnType<typeof boxerControllerHandleBoxerCreate>>,
   TError = unknown,
 >(
-  boxerCreateRequestSchema: BoxerCreateRequestSchema,
+  boxerCreateSchema: BoxerCreateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -7347,7 +7334,7 @@ export function useBoxerControllerHandleBoxerCreate<
   TData = Awaited<ReturnType<typeof boxerControllerHandleBoxerCreate>>,
   TError = unknown,
 >(
-  boxerCreateRequestSchema: BoxerCreateRequestSchema,
+  boxerCreateSchema: BoxerCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -7374,7 +7361,7 @@ export function useBoxerControllerHandleBoxerCreate<
   TData = Awaited<ReturnType<typeof boxerControllerHandleBoxerCreate>>,
   TError = unknown,
 >(
-  boxerCreateRequestSchema: BoxerCreateRequestSchema,
+  boxerCreateSchema: BoxerCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -7394,7 +7381,7 @@ export function useBoxerControllerHandleBoxerCreate<
   TData = Awaited<ReturnType<typeof boxerControllerHandleBoxerCreate>>,
   TError = unknown,
 >(
-  boxerCreateRequestSchema: BoxerCreateRequestSchema,
+  boxerCreateSchema: BoxerCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -7410,7 +7397,7 @@ export function useBoxerControllerHandleBoxerCreate<
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
   const queryOptions = getBoxerControllerHandleBoxerCreateQueryOptions(
-    boxerCreateRequestSchema,
+    boxerCreateSchema,
     options,
   );
 
@@ -7424,14 +7411,12 @@ export function useBoxerControllerHandleBoxerCreate<
 
 export const invalidateBoxerControllerHandleBoxerCreate = async (
   queryClient: QueryClient,
-  boxerCreateRequestSchema: BoxerCreateRequestSchema,
+  boxerCreateSchema: BoxerCreateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
-      queryKey: getBoxerControllerHandleBoxerCreateQueryKey(
-        boxerCreateRequestSchema,
-      ),
+      queryKey: getBoxerControllerHandleBoxerCreateQueryKey(boxerCreateSchema),
     },
     options,
   );
@@ -7440,7 +7425,7 @@ export const invalidateBoxerControllerHandleBoxerCreate = async (
 };
 
 export type boxerControllerHandleBoxerListResponse200 = {
-  data: BoxerListResponseSchema;
+  data: BoxerListReply;
   status: 200;
 };
 
@@ -8143,7 +8128,7 @@ export function useBoxerControllerHandleBoxerListSuspenseInfinite<
 }
 
 export type boxerControllerHandleBoxerInfoResponse200 = {
-  data: BoxerInfoResponseSchema;
+  data: BoxerInfoReply;
   status: 200;
 };
 
@@ -8470,7 +8455,7 @@ export function useBoxerControllerHandleBoxerInfoSuspense<
 }
 
 export type boxerControllerHandleBoxerUpdateResponse200 = {
-  data: BoxerUpdateResponseSchema;
+  data: BoxerUpdateReply;
   status: 200;
 };
 
@@ -8487,7 +8472,7 @@ export const getBoxerControllerHandleBoxerUpdateUrl = (boxerId: string) => {
 
 export const boxerControllerHandleBoxerUpdate = async (
   boxerId: string,
-  boxerUpdateRequestSchema: BoxerUpdateRequestSchema,
+  boxerUpdateSchema: BoxerUpdateSchema,
   options?: RequestInit,
 ): Promise<boxerControllerHandleBoxerUpdateResponse> => {
   return customFetch<boxerControllerHandleBoxerUpdateResponse>(
@@ -8496,20 +8481,16 @@ export const boxerControllerHandleBoxerUpdate = async (
       ...options,
       method: "PATCH",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(boxerUpdateRequestSchema),
+      body: JSON.stringify(boxerUpdateSchema),
     },
   );
 };
 
 export const getBoxerControllerHandleBoxerUpdateQueryKey = (
   boxerId: string,
-  boxerUpdateRequestSchema?: BoxerUpdateRequestSchema,
+  boxerUpdateSchema?: BoxerUpdateSchema,
 ) => {
-  return [
-    "PATCH",
-    `/boxer/${boxerId}/update`,
-    boxerUpdateRequestSchema,
-  ] as const;
+  return ["PATCH", `/boxer/${boxerId}/update`, boxerUpdateSchema] as const;
 };
 
 export const getBoxerControllerHandleBoxerUpdateQueryOptions = <
@@ -8517,7 +8498,7 @@ export const getBoxerControllerHandleBoxerUpdateQueryOptions = <
   TError = unknown,
 >(
   boxerId: string,
-  boxerUpdateRequestSchema: BoxerUpdateRequestSchema,
+  boxerUpdateSchema: BoxerUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -8533,15 +8514,12 @@ export const getBoxerControllerHandleBoxerUpdateQueryOptions = <
 
   const queryKey =
     queryOptions?.queryKey ??
-    getBoxerControllerHandleBoxerUpdateQueryKey(
-      boxerId,
-      boxerUpdateRequestSchema,
-    );
+    getBoxerControllerHandleBoxerUpdateQueryKey(boxerId, boxerUpdateSchema);
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof boxerControllerHandleBoxerUpdate>>
   > = ({ signal }) =>
-    boxerControllerHandleBoxerUpdate(boxerId, boxerUpdateRequestSchema, {
+    boxerControllerHandleBoxerUpdate(boxerId, boxerUpdateSchema, {
       signal,
       ...requestOptions,
     });
@@ -8568,7 +8546,7 @@ export function useBoxerControllerHandleBoxerUpdate<
   TError = unknown,
 >(
   boxerId: string,
-  boxerUpdateRequestSchema: BoxerUpdateRequestSchema,
+  boxerUpdateSchema: BoxerUpdateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -8596,7 +8574,7 @@ export function useBoxerControllerHandleBoxerUpdate<
   TError = unknown,
 >(
   boxerId: string,
-  boxerUpdateRequestSchema: BoxerUpdateRequestSchema,
+  boxerUpdateSchema: BoxerUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -8624,7 +8602,7 @@ export function useBoxerControllerHandleBoxerUpdate<
   TError = unknown,
 >(
   boxerId: string,
-  boxerUpdateRequestSchema: BoxerUpdateRequestSchema,
+  boxerUpdateSchema: BoxerUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -8645,7 +8623,7 @@ export function useBoxerControllerHandleBoxerUpdate<
   TError = unknown,
 >(
   boxerId: string,
-  boxerUpdateRequestSchema: BoxerUpdateRequestSchema,
+  boxerUpdateSchema: BoxerUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -8662,7 +8640,7 @@ export function useBoxerControllerHandleBoxerUpdate<
 } {
   const queryOptions = getBoxerControllerHandleBoxerUpdateQueryOptions(
     boxerId,
-    boxerUpdateRequestSchema,
+    boxerUpdateSchema,
     options,
   );
 
@@ -8677,14 +8655,14 @@ export function useBoxerControllerHandleBoxerUpdate<
 export const invalidateBoxerControllerHandleBoxerUpdate = async (
   queryClient: QueryClient,
   boxerId: string,
-  boxerUpdateRequestSchema: BoxerUpdateRequestSchema,
+  boxerUpdateSchema: BoxerUpdateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
       queryKey: getBoxerControllerHandleBoxerUpdateQueryKey(
         boxerId,
-        boxerUpdateRequestSchema,
+        boxerUpdateSchema,
       ),
     },
     options,
@@ -8694,7 +8672,7 @@ export const invalidateBoxerControllerHandleBoxerUpdate = async (
 };
 
 export type eventControllerHandleEventCreateResponse201 = {
-  data: EventCreateResponseSchema;
+  data: EventCreateReply;
   status: 201;
 };
 
@@ -8710,7 +8688,7 @@ export const getEventControllerHandleEventCreateUrl = () => {
 };
 
 export const eventControllerHandleEventCreate = async (
-  eventCreateRequestSchema: EventCreateRequestSchema,
+  eventCreateSchema: EventCreateSchema,
   options?: RequestInit,
 ): Promise<eventControllerHandleEventCreateResponse> => {
   return customFetch<eventControllerHandleEventCreateResponse>(
@@ -8719,22 +8697,22 @@ export const eventControllerHandleEventCreate = async (
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(eventCreateRequestSchema),
+      body: JSON.stringify(eventCreateSchema),
     },
   );
 };
 
 export const getEventControllerHandleEventCreateQueryKey = (
-  eventCreateRequestSchema?: EventCreateRequestSchema,
+  eventCreateSchema?: EventCreateSchema,
 ) => {
-  return ["POST", `/event/create`, eventCreateRequestSchema] as const;
+  return ["POST", `/event/create`, eventCreateSchema] as const;
 };
 
 export const getEventControllerHandleEventCreateQueryOptions = <
   TData = Awaited<ReturnType<typeof eventControllerHandleEventCreate>>,
   TError = unknown,
 >(
-  eventCreateRequestSchema: EventCreateRequestSchema,
+  eventCreateSchema: EventCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -8750,12 +8728,12 @@ export const getEventControllerHandleEventCreateQueryOptions = <
 
   const queryKey =
     queryOptions?.queryKey ??
-    getEventControllerHandleEventCreateQueryKey(eventCreateRequestSchema);
+    getEventControllerHandleEventCreateQueryKey(eventCreateSchema);
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof eventControllerHandleEventCreate>>
   > = ({ signal }) =>
-    eventControllerHandleEventCreate(eventCreateRequestSchema, {
+    eventControllerHandleEventCreate(eventCreateSchema, {
       signal,
       ...requestOptions,
     });
@@ -8776,7 +8754,7 @@ export function useEventControllerHandleEventCreate<
   TData = Awaited<ReturnType<typeof eventControllerHandleEventCreate>>,
   TError = unknown,
 >(
-  eventCreateRequestSchema: EventCreateRequestSchema,
+  eventCreateSchema: EventCreateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -8803,7 +8781,7 @@ export function useEventControllerHandleEventCreate<
   TData = Awaited<ReturnType<typeof eventControllerHandleEventCreate>>,
   TError = unknown,
 >(
-  eventCreateRequestSchema: EventCreateRequestSchema,
+  eventCreateSchema: EventCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -8830,7 +8808,7 @@ export function useEventControllerHandleEventCreate<
   TData = Awaited<ReturnType<typeof eventControllerHandleEventCreate>>,
   TError = unknown,
 >(
-  eventCreateRequestSchema: EventCreateRequestSchema,
+  eventCreateSchema: EventCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -8850,7 +8828,7 @@ export function useEventControllerHandleEventCreate<
   TData = Awaited<ReturnType<typeof eventControllerHandleEventCreate>>,
   TError = unknown,
 >(
-  eventCreateRequestSchema: EventCreateRequestSchema,
+  eventCreateSchema: EventCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -8866,7 +8844,7 @@ export function useEventControllerHandleEventCreate<
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
   const queryOptions = getEventControllerHandleEventCreateQueryOptions(
-    eventCreateRequestSchema,
+    eventCreateSchema,
     options,
   );
 
@@ -8880,14 +8858,12 @@ export function useEventControllerHandleEventCreate<
 
 export const invalidateEventControllerHandleEventCreate = async (
   queryClient: QueryClient,
-  eventCreateRequestSchema: EventCreateRequestSchema,
+  eventCreateSchema: EventCreateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
-      queryKey: getEventControllerHandleEventCreateQueryKey(
-        eventCreateRequestSchema,
-      ),
+      queryKey: getEventControllerHandleEventCreateQueryKey(eventCreateSchema),
     },
     options,
   );
@@ -8896,7 +8872,7 @@ export const invalidateEventControllerHandleEventCreate = async (
 };
 
 export type eventControllerHandleEventListResponse200 = {
-  data: EventListResponseSchema;
+  data: EventListReply;
   status: 200;
 };
 
@@ -9599,7 +9575,7 @@ export function useEventControllerHandleEventListSuspenseInfinite<
 }
 
 export type eventControllerHandleEventInfoResponse200 = {
-  data: EventInfoResponseSchema;
+  data: EventInfoReply;
   status: 200;
 };
 
@@ -9926,7 +9902,7 @@ export function useEventControllerHandleEventInfoSuspense<
 }
 
 export type eventControllerHandleEventUpdateResponse200 = {
-  data: EventUpdateResponseSchema;
+  data: EventUpdateReply;
   status: 200;
 };
 
@@ -9943,7 +9919,7 @@ export const getEventControllerHandleEventUpdateUrl = (eventId: string) => {
 
 export const eventControllerHandleEventUpdate = async (
   eventId: string,
-  eventUpdateRequestSchema: EventUpdateRequestSchema,
+  eventUpdateSchema: EventUpdateSchema,
   options?: RequestInit,
 ): Promise<eventControllerHandleEventUpdateResponse> => {
   return customFetch<eventControllerHandleEventUpdateResponse>(
@@ -9952,20 +9928,16 @@ export const eventControllerHandleEventUpdate = async (
       ...options,
       method: "PATCH",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(eventUpdateRequestSchema),
+      body: JSON.stringify(eventUpdateSchema),
     },
   );
 };
 
 export const getEventControllerHandleEventUpdateQueryKey = (
   eventId: string,
-  eventUpdateRequestSchema?: EventUpdateRequestSchema,
+  eventUpdateSchema?: EventUpdateSchema,
 ) => {
-  return [
-    "PATCH",
-    `/event/${eventId}/update`,
-    eventUpdateRequestSchema,
-  ] as const;
+  return ["PATCH", `/event/${eventId}/update`, eventUpdateSchema] as const;
 };
 
 export const getEventControllerHandleEventUpdateQueryOptions = <
@@ -9973,7 +9945,7 @@ export const getEventControllerHandleEventUpdateQueryOptions = <
   TError = unknown,
 >(
   eventId: string,
-  eventUpdateRequestSchema: EventUpdateRequestSchema,
+  eventUpdateSchema: EventUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -9989,15 +9961,12 @@ export const getEventControllerHandleEventUpdateQueryOptions = <
 
   const queryKey =
     queryOptions?.queryKey ??
-    getEventControllerHandleEventUpdateQueryKey(
-      eventId,
-      eventUpdateRequestSchema,
-    );
+    getEventControllerHandleEventUpdateQueryKey(eventId, eventUpdateSchema);
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof eventControllerHandleEventUpdate>>
   > = ({ signal }) =>
-    eventControllerHandleEventUpdate(eventId, eventUpdateRequestSchema, {
+    eventControllerHandleEventUpdate(eventId, eventUpdateSchema, {
       signal,
       ...requestOptions,
     });
@@ -10024,7 +9993,7 @@ export function useEventControllerHandleEventUpdate<
   TError = unknown,
 >(
   eventId: string,
-  eventUpdateRequestSchema: EventUpdateRequestSchema,
+  eventUpdateSchema: EventUpdateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -10052,7 +10021,7 @@ export function useEventControllerHandleEventUpdate<
   TError = unknown,
 >(
   eventId: string,
-  eventUpdateRequestSchema: EventUpdateRequestSchema,
+  eventUpdateSchema: EventUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -10080,7 +10049,7 @@ export function useEventControllerHandleEventUpdate<
   TError = unknown,
 >(
   eventId: string,
-  eventUpdateRequestSchema: EventUpdateRequestSchema,
+  eventUpdateSchema: EventUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -10101,7 +10070,7 @@ export function useEventControllerHandleEventUpdate<
   TError = unknown,
 >(
   eventId: string,
-  eventUpdateRequestSchema: EventUpdateRequestSchema,
+  eventUpdateSchema: EventUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -10118,7 +10087,7 @@ export function useEventControllerHandleEventUpdate<
 } {
   const queryOptions = getEventControllerHandleEventUpdateQueryOptions(
     eventId,
-    eventUpdateRequestSchema,
+    eventUpdateSchema,
     options,
   );
 
@@ -10133,14 +10102,14 @@ export function useEventControllerHandleEventUpdate<
 export const invalidateEventControllerHandleEventUpdate = async (
   queryClient: QueryClient,
   eventId: string,
-  eventUpdateRequestSchema: EventUpdateRequestSchema,
+  eventUpdateSchema: EventUpdateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
       queryKey: getEventControllerHandleEventUpdateQueryKey(
         eventId,
-        eventUpdateRequestSchema,
+        eventUpdateSchema,
       ),
     },
     options,
@@ -10150,7 +10119,7 @@ export const invalidateEventControllerHandleEventUpdate = async (
 };
 
 export type eventControllerHandleEventScheduleResponse202 = {
-  data: EventScheduleResponseSchema;
+  data: EventScheduleReply;
   status: 202;
 };
 
@@ -10348,7 +10317,7 @@ export const invalidateEventControllerHandleEventSchedule = async (
 };
 
 export type eventControllerHandleEventStartResponse202 = {
-  data: EventStartResponseSchema;
+  data: EventStartReply;
   status: 202;
 };
 
@@ -10544,7 +10513,7 @@ export const invalidateEventControllerHandleEventStart = async (
 };
 
 export type eventControllerHandleEventFinishResponse202 = {
-  data: EventFinishResponseSchema;
+  data: EventFinishReply;
   status: 202;
 };
 
@@ -10742,7 +10711,7 @@ export const invalidateEventControllerHandleEventFinish = async (
 };
 
 export type eventControllerHandleEventCancelResponse202 = {
-  data: EventCancelResponseSchema;
+  data: EventCancelReply;
   status: 202;
 };
 
@@ -10940,7 +10909,7 @@ export const invalidateEventControllerHandleEventCancel = async (
 };
 
 export type venueControllerHandleVenueCreateResponse201 = {
-  data: VenueCreateResponseSchema;
+  data: VenueCreateReply;
   status: 201;
 };
 
@@ -10956,7 +10925,7 @@ export const getVenueControllerHandleVenueCreateUrl = () => {
 };
 
 export const venueControllerHandleVenueCreate = async (
-  venueCreateRequestSchema: VenueCreateRequestSchema,
+  venueCreateSchema: VenueCreateSchema,
   options?: RequestInit,
 ): Promise<venueControllerHandleVenueCreateResponse> => {
   return customFetch<venueControllerHandleVenueCreateResponse>(
@@ -10965,22 +10934,22 @@ export const venueControllerHandleVenueCreate = async (
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(venueCreateRequestSchema),
+      body: JSON.stringify(venueCreateSchema),
     },
   );
 };
 
 export const getVenueControllerHandleVenueCreateQueryKey = (
-  venueCreateRequestSchema?: VenueCreateRequestSchema,
+  venueCreateSchema?: VenueCreateSchema,
 ) => {
-  return ["POST", `/venue/create`, venueCreateRequestSchema] as const;
+  return ["POST", `/venue/create`, venueCreateSchema] as const;
 };
 
 export const getVenueControllerHandleVenueCreateQueryOptions = <
   TData = Awaited<ReturnType<typeof venueControllerHandleVenueCreate>>,
   TError = unknown,
 >(
-  venueCreateRequestSchema: VenueCreateRequestSchema,
+  venueCreateSchema: VenueCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -10996,12 +10965,12 @@ export const getVenueControllerHandleVenueCreateQueryOptions = <
 
   const queryKey =
     queryOptions?.queryKey ??
-    getVenueControllerHandleVenueCreateQueryKey(venueCreateRequestSchema);
+    getVenueControllerHandleVenueCreateQueryKey(venueCreateSchema);
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof venueControllerHandleVenueCreate>>
   > = ({ signal }) =>
-    venueControllerHandleVenueCreate(venueCreateRequestSchema, {
+    venueControllerHandleVenueCreate(venueCreateSchema, {
       signal,
       ...requestOptions,
     });
@@ -11022,7 +10991,7 @@ export function useVenueControllerHandleVenueCreate<
   TData = Awaited<ReturnType<typeof venueControllerHandleVenueCreate>>,
   TError = unknown,
 >(
-  venueCreateRequestSchema: VenueCreateRequestSchema,
+  venueCreateSchema: VenueCreateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -11049,7 +11018,7 @@ export function useVenueControllerHandleVenueCreate<
   TData = Awaited<ReturnType<typeof venueControllerHandleVenueCreate>>,
   TError = unknown,
 >(
-  venueCreateRequestSchema: VenueCreateRequestSchema,
+  venueCreateSchema: VenueCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -11076,7 +11045,7 @@ export function useVenueControllerHandleVenueCreate<
   TData = Awaited<ReturnType<typeof venueControllerHandleVenueCreate>>,
   TError = unknown,
 >(
-  venueCreateRequestSchema: VenueCreateRequestSchema,
+  venueCreateSchema: VenueCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -11096,7 +11065,7 @@ export function useVenueControllerHandleVenueCreate<
   TData = Awaited<ReturnType<typeof venueControllerHandleVenueCreate>>,
   TError = unknown,
 >(
-  venueCreateRequestSchema: VenueCreateRequestSchema,
+  venueCreateSchema: VenueCreateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -11112,7 +11081,7 @@ export function useVenueControllerHandleVenueCreate<
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
   const queryOptions = getVenueControllerHandleVenueCreateQueryOptions(
-    venueCreateRequestSchema,
+    venueCreateSchema,
     options,
   );
 
@@ -11126,14 +11095,12 @@ export function useVenueControllerHandleVenueCreate<
 
 export const invalidateVenueControllerHandleVenueCreate = async (
   queryClient: QueryClient,
-  venueCreateRequestSchema: VenueCreateRequestSchema,
+  venueCreateSchema: VenueCreateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
-      queryKey: getVenueControllerHandleVenueCreateQueryKey(
-        venueCreateRequestSchema,
-      ),
+      queryKey: getVenueControllerHandleVenueCreateQueryKey(venueCreateSchema),
     },
     options,
   );
@@ -11142,7 +11109,7 @@ export const invalidateVenueControllerHandleVenueCreate = async (
 };
 
 export type venueControllerHandleVenueListResponse200 = {
-  data: VenueListResponseSchema;
+  data: VenueListReply;
   status: 200;
 };
 
@@ -11845,7 +11812,7 @@ export function useVenueControllerHandleVenueListSuspenseInfinite<
 }
 
 export type venueControllerHandleVenueInfoResponse200 = {
-  data: VenueInfoResponseSchema;
+  data: VenueInfoReply;
   status: 200;
 };
 
@@ -12172,7 +12139,7 @@ export function useVenueControllerHandleVenueInfoSuspense<
 }
 
 export type venueControllerHandleVenueUpdateResponse200 = {
-  data: VenueUpdateResponseSchema;
+  data: VenueUpdateReply;
   status: 200;
 };
 
@@ -12189,7 +12156,7 @@ export const getVenueControllerHandleVenueUpdateUrl = (venueId: string) => {
 
 export const venueControllerHandleVenueUpdate = async (
   venueId: string,
-  venueUpdateRequestSchema: VenueUpdateRequestSchema,
+  venueUpdateSchema: VenueUpdateSchema,
   options?: RequestInit,
 ): Promise<venueControllerHandleVenueUpdateResponse> => {
   return customFetch<venueControllerHandleVenueUpdateResponse>(
@@ -12198,20 +12165,16 @@ export const venueControllerHandleVenueUpdate = async (
       ...options,
       method: "PATCH",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(venueUpdateRequestSchema),
+      body: JSON.stringify(venueUpdateSchema),
     },
   );
 };
 
 export const getVenueControllerHandleVenueUpdateQueryKey = (
   venueId: string,
-  venueUpdateRequestSchema?: VenueUpdateRequestSchema,
+  venueUpdateSchema?: VenueUpdateSchema,
 ) => {
-  return [
-    "PATCH",
-    `/venue/${venueId}/update`,
-    venueUpdateRequestSchema,
-  ] as const;
+  return ["PATCH", `/venue/${venueId}/update`, venueUpdateSchema] as const;
 };
 
 export const getVenueControllerHandleVenueUpdateQueryOptions = <
@@ -12219,7 +12182,7 @@ export const getVenueControllerHandleVenueUpdateQueryOptions = <
   TError = unknown,
 >(
   venueId: string,
-  venueUpdateRequestSchema: VenueUpdateRequestSchema,
+  venueUpdateSchema: VenueUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -12235,15 +12198,12 @@ export const getVenueControllerHandleVenueUpdateQueryOptions = <
 
   const queryKey =
     queryOptions?.queryKey ??
-    getVenueControllerHandleVenueUpdateQueryKey(
-      venueId,
-      venueUpdateRequestSchema,
-    );
+    getVenueControllerHandleVenueUpdateQueryKey(venueId, venueUpdateSchema);
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof venueControllerHandleVenueUpdate>>
   > = ({ signal }) =>
-    venueControllerHandleVenueUpdate(venueId, venueUpdateRequestSchema, {
+    venueControllerHandleVenueUpdate(venueId, venueUpdateSchema, {
       signal,
       ...requestOptions,
     });
@@ -12270,7 +12230,7 @@ export function useVenueControllerHandleVenueUpdate<
   TError = unknown,
 >(
   venueId: string,
-  venueUpdateRequestSchema: VenueUpdateRequestSchema,
+  venueUpdateSchema: VenueUpdateSchema,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -12298,7 +12258,7 @@ export function useVenueControllerHandleVenueUpdate<
   TError = unknown,
 >(
   venueId: string,
-  venueUpdateRequestSchema: VenueUpdateRequestSchema,
+  venueUpdateSchema: VenueUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -12326,7 +12286,7 @@ export function useVenueControllerHandleVenueUpdate<
   TError = unknown,
 >(
   venueId: string,
-  venueUpdateRequestSchema: VenueUpdateRequestSchema,
+  venueUpdateSchema: VenueUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -12347,7 +12307,7 @@ export function useVenueControllerHandleVenueUpdate<
   TError = unknown,
 >(
   venueId: string,
-  venueUpdateRequestSchema: VenueUpdateRequestSchema,
+  venueUpdateSchema: VenueUpdateSchema,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -12364,7 +12324,7 @@ export function useVenueControllerHandleVenueUpdate<
 } {
   const queryOptions = getVenueControllerHandleVenueUpdateQueryOptions(
     venueId,
-    venueUpdateRequestSchema,
+    venueUpdateSchema,
     options,
   );
 
@@ -12379,14 +12339,14 @@ export function useVenueControllerHandleVenueUpdate<
 export const invalidateVenueControllerHandleVenueUpdate = async (
   queryClient: QueryClient,
   venueId: string,
-  venueUpdateRequestSchema: VenueUpdateRequestSchema,
+  venueUpdateSchema: VenueUpdateSchema,
   options?: InvalidateOptions,
 ): Promise<QueryClient> => {
   await queryClient.invalidateQueries(
     {
       queryKey: getVenueControllerHandleVenueUpdateQueryKey(
         venueId,
-        venueUpdateRequestSchema,
+        venueUpdateSchema,
       ),
     },
     options,
@@ -12396,10 +12356,8 @@ export const invalidateVenueControllerHandleVenueUpdate = async (
 };
 
 export const getTournamentControllerHandleTournamentCreateResponseMock = (
-  overrideResponse: Partial<
-    Extract<TournamentCreateResponseSchema, object>
-  > = {},
-): TournamentCreateResponseSchema => ({
+  overrideResponse: Partial<Extract<TournamentCreateReply, object>> = {},
+): TournamentCreateReply => ({
   data: {
     ...{
       tournament: {
@@ -12425,8 +12383,8 @@ export const getTournamentControllerHandleTournamentCreateResponseMock = (
 });
 
 export const getTournamentControllerHandleTournamentListResponseMock = (
-  overrideResponse: Partial<Extract<TournamentListResponseSchema, object>> = {},
-): TournamentListResponseSchema => ({
+  overrideResponse: Partial<Extract<TournamentListReply, object>> = {},
+): TournamentListReply => ({
   data: {
     ...{
       tournaments: Array.from(
@@ -12449,12 +12407,13 @@ export const getTournamentControllerHandleTournamentListResponseMock = (
       })),
     },
   },
+  meta: { ...{ count: faker.number.float({ fractionDigits: 2 }) } },
   ...overrideResponse,
 });
 
 export const getTournamentControllerHandleTournamentInfoResponseMock = (
-  overrideResponse: Partial<Extract<TournamentInfoResponseSchema, object>> = {},
-): TournamentInfoResponseSchema => ({
+  overrideResponse: Partial<Extract<TournamentInfoReply, object>> = {},
+): TournamentInfoReply => ({
   data: {
     ...{
       tournament: {
@@ -12480,10 +12439,8 @@ export const getTournamentControllerHandleTournamentInfoResponseMock = (
 });
 
 export const getTournamentControllerHandleTournamentUpdateResponseMock = (
-  overrideResponse: Partial<
-    Extract<TournamentUpdateResponseSchema, object>
-  > = {},
-): TournamentUpdateResponseSchema => ({
+  overrideResponse: Partial<Extract<TournamentUpdateReply, object>> = {},
+): TournamentUpdateReply => ({
   data: {
     ...{
       tournament: {
@@ -12509,10 +12466,8 @@ export const getTournamentControllerHandleTournamentUpdateResponseMock = (
 });
 
 export const getTournamentControllerHandleTournamentScheduleResponseMock = (
-  overrideResponse: Partial<
-    Extract<TournamentScheduleResponseSchema, object>
-  > = {},
-): TournamentScheduleResponseSchema => ({
+  overrideResponse: Partial<Extract<TournamentScheduleReply, object>> = {},
+): TournamentScheduleReply => ({
   data: {
     ...{
       tournament: {
@@ -12538,10 +12493,8 @@ export const getTournamentControllerHandleTournamentScheduleResponseMock = (
 });
 
 export const getTournamentControllerHandleTournamentStartResponseMock = (
-  overrideResponse: Partial<
-    Extract<TournamentStartResponseSchema, object>
-  > = {},
-): TournamentStartResponseSchema => ({
+  overrideResponse: Partial<Extract<TournamentStartReply, object>> = {},
+): TournamentStartReply => ({
   data: {
     ...{
       tournament: {
@@ -12567,10 +12520,8 @@ export const getTournamentControllerHandleTournamentStartResponseMock = (
 });
 
 export const getTournamentControllerHandleTournamentFinishResponseMock = (
-  overrideResponse: Partial<
-    Extract<TournamentFinishResponseSchema, object>
-  > = {},
-): TournamentFinishResponseSchema => ({
+  overrideResponse: Partial<Extract<TournamentFinishReply, object>> = {},
+): TournamentFinishReply => ({
   data: {
     ...{
       tournament: {
@@ -12596,10 +12547,8 @@ export const getTournamentControllerHandleTournamentFinishResponseMock = (
 });
 
 export const getTournamentControllerHandleTournamentCancelResponseMock = (
-  overrideResponse: Partial<
-    Extract<TournamentCancelResponseSchema, object>
-  > = {},
-): TournamentCancelResponseSchema => ({
+  overrideResponse: Partial<Extract<TournamentCancelReply, object>> = {},
+): TournamentCancelReply => ({
   data: {
     ...{
       tournament: {
@@ -12625,8 +12574,8 @@ export const getTournamentControllerHandleTournamentCancelResponseMock = (
 });
 
 export const getTerminalControllerHandleTerminalCreateResponseMock = (
-  overrideResponse: Partial<Extract<TerminalCreateResponseSchema, object>> = {},
-): TerminalCreateResponseSchema => ({
+  overrideResponse: Partial<Extract<TerminalCreateReply, object>> = {},
+): TerminalCreateReply => ({
   data: {
     ...{
       terminal: {
@@ -12644,8 +12593,8 @@ export const getTerminalControllerHandleTerminalCreateResponseMock = (
 });
 
 export const getTerminalControllerHandleTerminalListResponseMock = (
-  overrideResponse: Partial<Extract<TerminalListResponseSchema, object>> = {},
-): TerminalListResponseSchema => ({
+  overrideResponse: Partial<Extract<TerminalListReply, object>> = {},
+): TerminalListReply => ({
   data: {
     ...{
       terminals: Array.from(
@@ -12660,12 +12609,13 @@ export const getTerminalControllerHandleTerminalListResponseMock = (
       })),
     },
   },
+  meta: { ...{ count: faker.number.float({ fractionDigits: 2 }) } },
   ...overrideResponse,
 });
 
 export const getTerminalControllerHandleTerminalInfoResponseMock = (
-  overrideResponse: Partial<Extract<TerminalInfoResponseSchema, object>> = {},
-): TerminalInfoResponseSchema => ({
+  overrideResponse: Partial<Extract<TerminalInfoReply, object>> = {},
+): TerminalInfoReply => ({
   data: {
     ...{
       terminal: {
@@ -12683,8 +12633,8 @@ export const getTerminalControllerHandleTerminalInfoResponseMock = (
 });
 
 export const getTerminalControllerHandleTerminalUpdateResponseMock = (
-  overrideResponse: Partial<Extract<TerminalUpdateResponseSchema, object>> = {},
-): TerminalUpdateResponseSchema => ({
+  overrideResponse: Partial<Extract<TerminalUpdateReply, object>> = {},
+): TerminalUpdateReply => ({
   data: {
     ...{
       terminal: {
@@ -12702,8 +12652,8 @@ export const getTerminalControllerHandleTerminalUpdateResponseMock = (
 });
 
 export const getOverlayControllerHandleOverlayCreateResponseMock = (
-  overrideResponse: Partial<Extract<OverlayCreateResponseSchema, object>> = {},
-): OverlayCreateResponseSchema => ({
+  overrideResponse: Partial<Extract<OverlayCreateReply, object>> = {},
+): OverlayCreateReply => ({
   data: {
     ...{
       overlay: {
@@ -12721,8 +12671,8 @@ export const getOverlayControllerHandleOverlayCreateResponseMock = (
 });
 
 export const getOverlayControllerHandleOverlayListResponseMock = (
-  overrideResponse: Partial<Extract<OverlayListResponseSchema, object>> = {},
-): OverlayListResponseSchema => ({
+  overrideResponse: Partial<Extract<OverlayListReply, object>> = {},
+): OverlayListReply => ({
   data: {
     ...{
       overlays: Array.from(
@@ -12737,12 +12687,13 @@ export const getOverlayControllerHandleOverlayListResponseMock = (
       })),
     },
   },
+  meta: { ...{ count: faker.number.float({ fractionDigits: 2 }) } },
   ...overrideResponse,
 });
 
 export const getOverlayControllerHandleOverlayInfoResponseMock = (
-  overrideResponse: Partial<Extract<OverlayInfoResponseSchema, object>> = {},
-): OverlayInfoResponseSchema => ({
+  overrideResponse: Partial<Extract<OverlayInfoReply, object>> = {},
+): OverlayInfoReply => ({
   data: {
     ...{
       overlay: {
@@ -12760,8 +12711,8 @@ export const getOverlayControllerHandleOverlayInfoResponseMock = (
 });
 
 export const getOverlayControllerHandleOverlayUpdateResponseMock = (
-  overrideResponse: Partial<Extract<OverlayUpdateResponseSchema, object>> = {},
-): OverlayUpdateResponseSchema => ({
+  overrideResponse: Partial<Extract<OverlayUpdateReply, object>> = {},
+): OverlayUpdateReply => ({
   data: {
     ...{
       overlay: {
@@ -12778,9 +12729,18 @@ export const getOverlayControllerHandleOverlayUpdateResponseMock = (
   ...overrideResponse,
 });
 
+export const getHealthControllerHandleHealthCheckResponseMock = (
+  overrideResponse: Partial<Extract<HealthCheckReply, object>> = {},
+): HealthCheckReply => ({
+  meta: {
+    ...{ message: faker.string.alpha({ length: { min: 10, max: 20 } }) },
+  },
+  ...overrideResponse,
+});
+
 export const getStreamControllerHandleStreamCreateResponseMock = (
-  overrideResponse: Partial<Extract<StreamCreateResponseSchema, object>> = {},
-): StreamCreateResponseSchema => ({
+  overrideResponse: Partial<Extract<StreamCreateReply, object>> = {},
+): StreamCreateReply => ({
   data: {
     ...{
       stream: {
@@ -12801,8 +12761,8 @@ export const getStreamControllerHandleStreamCreateResponseMock = (
 });
 
 export const getStreamControllerHandleStreamListResponseMock = (
-  overrideResponse: Partial<Extract<StreamListResponseSchema, object>> = {},
-): StreamListResponseSchema => ({
+  overrideResponse: Partial<Extract<StreamListReply, object>> = {},
+): StreamListReply => ({
   data: {
     ...{
       streams: Array.from(
@@ -12820,12 +12780,13 @@ export const getStreamControllerHandleStreamListResponseMock = (
       })),
     },
   },
+  meta: { ...{ count: faker.number.float({ fractionDigits: 2 }) } },
   ...overrideResponse,
 });
 
 export const getStreamControllerHandleStreamInfoResponseMock = (
-  overrideResponse: Partial<Extract<StreamInfoResponseSchema, object>> = {},
-): StreamInfoResponseSchema => ({
+  overrideResponse: Partial<Extract<StreamInfoReply, object>> = {},
+): StreamInfoReply => ({
   data: {
     ...{
       stream: {
@@ -12846,8 +12807,8 @@ export const getStreamControllerHandleStreamInfoResponseMock = (
 });
 
 export const getStreamControllerHandleStreamUpdateResponseMock = (
-  overrideResponse: Partial<Extract<StreamUpdateResponseSchema, object>> = {},
-): StreamUpdateResponseSchema => ({
+  overrideResponse: Partial<Extract<StreamUpdateReply, object>> = {},
+): StreamUpdateReply => ({
   data: {
     ...{
       stream: {
@@ -12868,8 +12829,8 @@ export const getStreamControllerHandleStreamUpdateResponseMock = (
 });
 
 export const getBoxerControllerHandleBoxerCreateResponseMock = (
-  overrideResponse: Partial<Extract<BoxerCreateResponseSchema, object>> = {},
-): BoxerCreateResponseSchema => ({
+  overrideResponse: Partial<Extract<BoxerCreateReply, object>> = {},
+): BoxerCreateReply => ({
   data: {
     ...{
       boxer: {
@@ -12886,8 +12847,8 @@ export const getBoxerControllerHandleBoxerCreateResponseMock = (
 });
 
 export const getBoxerControllerHandleBoxerListResponseMock = (
-  overrideResponse: Partial<Extract<BoxerListResponseSchema, object>> = {},
-): BoxerListResponseSchema => ({
+  overrideResponse: Partial<Extract<BoxerListReply, object>> = {},
+): BoxerListReply => ({
   data: {
     ...{
       boxers: Array.from(
@@ -12901,12 +12862,13 @@ export const getBoxerControllerHandleBoxerListResponseMock = (
       })),
     },
   },
+  meta: { ...{ count: faker.number.float({ fractionDigits: 2 }) } },
   ...overrideResponse,
 });
 
 export const getBoxerControllerHandleBoxerInfoResponseMock = (
-  overrideResponse: Partial<Extract<BoxerInfoResponseSchema, object>> = {},
-): BoxerInfoResponseSchema => ({
+  overrideResponse: Partial<Extract<BoxerInfoReply, object>> = {},
+): BoxerInfoReply => ({
   data: {
     ...{
       boxer: {
@@ -12923,8 +12885,8 @@ export const getBoxerControllerHandleBoxerInfoResponseMock = (
 });
 
 export const getBoxerControllerHandleBoxerUpdateResponseMock = (
-  overrideResponse: Partial<Extract<BoxerUpdateResponseSchema, object>> = {},
-): BoxerUpdateResponseSchema => ({
+  overrideResponse: Partial<Extract<BoxerUpdateReply, object>> = {},
+): BoxerUpdateReply => ({
   data: {
     ...{
       boxer: {
@@ -12941,8 +12903,8 @@ export const getBoxerControllerHandleBoxerUpdateResponseMock = (
 });
 
 export const getEventControllerHandleEventCreateResponseMock = (
-  overrideResponse: Partial<Extract<EventCreateResponseSchema, object>> = {},
-): EventCreateResponseSchema => ({
+  overrideResponse: Partial<Extract<EventCreateReply, object>> = {},
+): EventCreateReply => ({
   data: {
     ...{
       event: {
@@ -12975,8 +12937,8 @@ export const getEventControllerHandleEventCreateResponseMock = (
 });
 
 export const getEventControllerHandleEventListResponseMock = (
-  overrideResponse: Partial<Extract<EventListResponseSchema, object>> = {},
-): EventListResponseSchema => ({
+  overrideResponse: Partial<Extract<EventListReply, object>> = {},
+): EventListReply => ({
   data: {
     ...{
       events: Array.from(
@@ -13006,12 +12968,13 @@ export const getEventControllerHandleEventListResponseMock = (
       })),
     },
   },
+  meta: { ...{ count: faker.number.float({ fractionDigits: 2 }) } },
   ...overrideResponse,
 });
 
 export const getEventControllerHandleEventInfoResponseMock = (
-  overrideResponse: Partial<Extract<EventInfoResponseSchema, object>> = {},
-): EventInfoResponseSchema => ({
+  overrideResponse: Partial<Extract<EventInfoReply, object>> = {},
+): EventInfoReply => ({
   data: {
     ...{
       event: {
@@ -13044,8 +13007,8 @@ export const getEventControllerHandleEventInfoResponseMock = (
 });
 
 export const getEventControllerHandleEventUpdateResponseMock = (
-  overrideResponse: Partial<Extract<EventUpdateResponseSchema, object>> = {},
-): EventUpdateResponseSchema => ({
+  overrideResponse: Partial<Extract<EventUpdateReply, object>> = {},
+): EventUpdateReply => ({
   data: {
     ...{
       event: {
@@ -13078,8 +13041,8 @@ export const getEventControllerHandleEventUpdateResponseMock = (
 });
 
 export const getEventControllerHandleEventScheduleResponseMock = (
-  overrideResponse: Partial<Extract<EventScheduleResponseSchema, object>> = {},
-): EventScheduleResponseSchema => ({
+  overrideResponse: Partial<Extract<EventScheduleReply, object>> = {},
+): EventScheduleReply => ({
   data: {
     ...{
       event: {
@@ -13112,8 +13075,8 @@ export const getEventControllerHandleEventScheduleResponseMock = (
 });
 
 export const getEventControllerHandleEventStartResponseMock = (
-  overrideResponse: Partial<Extract<EventStartResponseSchema, object>> = {},
-): EventStartResponseSchema => ({
+  overrideResponse: Partial<Extract<EventStartReply, object>> = {},
+): EventStartReply => ({
   data: {
     ...{
       event: {
@@ -13146,8 +13109,8 @@ export const getEventControllerHandleEventStartResponseMock = (
 });
 
 export const getEventControllerHandleEventFinishResponseMock = (
-  overrideResponse: Partial<Extract<EventFinishResponseSchema, object>> = {},
-): EventFinishResponseSchema => ({
+  overrideResponse: Partial<Extract<EventFinishReply, object>> = {},
+): EventFinishReply => ({
   data: {
     ...{
       event: {
@@ -13180,8 +13143,8 @@ export const getEventControllerHandleEventFinishResponseMock = (
 });
 
 export const getEventControllerHandleEventCancelResponseMock = (
-  overrideResponse: Partial<Extract<EventCancelResponseSchema, object>> = {},
-): EventCancelResponseSchema => ({
+  overrideResponse: Partial<Extract<EventCancelReply, object>> = {},
+): EventCancelReply => ({
   data: {
     ...{
       event: {
@@ -13214,8 +13177,8 @@ export const getEventControllerHandleEventCancelResponseMock = (
 });
 
 export const getVenueControllerHandleVenueCreateResponseMock = (
-  overrideResponse: Partial<Extract<VenueCreateResponseSchema, object>> = {},
-): VenueCreateResponseSchema => ({
+  overrideResponse: Partial<Extract<VenueCreateReply, object>> = {},
+): VenueCreateReply => ({
   data: {
     ...{
       venue: {
@@ -13236,8 +13199,8 @@ export const getVenueControllerHandleVenueCreateResponseMock = (
 });
 
 export const getVenueControllerHandleVenueListResponseMock = (
-  overrideResponse: Partial<Extract<VenueListResponseSchema, object>> = {},
-): VenueListResponseSchema => ({
+  overrideResponse: Partial<Extract<VenueListReply, object>> = {},
+): VenueListReply => ({
   data: {
     ...{
       venues: Array.from(
@@ -13255,12 +13218,13 @@ export const getVenueControllerHandleVenueListResponseMock = (
       })),
     },
   },
+  meta: { ...{ count: faker.number.float({ fractionDigits: 2 }) } },
   ...overrideResponse,
 });
 
 export const getVenueControllerHandleVenueInfoResponseMock = (
-  overrideResponse: Partial<Extract<VenueInfoResponseSchema, object>> = {},
-): VenueInfoResponseSchema => ({
+  overrideResponse: Partial<Extract<VenueInfoReply, object>> = {},
+): VenueInfoReply => ({
   data: {
     ...{
       venue: {
@@ -13281,8 +13245,8 @@ export const getVenueControllerHandleVenueInfoResponseMock = (
 });
 
 export const getVenueControllerHandleVenueUpdateResponseMock = (
-  overrideResponse: Partial<Extract<VenueUpdateResponseSchema, object>> = {},
-): VenueUpdateResponseSchema => ({
+  overrideResponse: Partial<Extract<VenueUpdateReply, object>> = {},
+): VenueUpdateReply => ({
   data: {
     ...{
       venue: {
@@ -13304,12 +13268,10 @@ export const getVenueControllerHandleVenueUpdateResponseMock = (
 
 export const getTournamentControllerHandleTournamentCreateMockHandler = (
   overrideResponse?:
-    | TournamentCreateResponseSchema
+    | TournamentCreateReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) =>
-        | Promise<TournamentCreateResponseSchema>
-        | TournamentCreateResponseSchema),
+      ) => Promise<TournamentCreateReply> | TournamentCreateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -13330,11 +13292,10 @@ export const getTournamentControllerHandleTournamentCreateMockHandler = (
 
 export const getTournamentControllerHandleTournamentListMockHandler = (
   overrideResponse?:
-    | TournamentListResponseSchema
+    | TournamentListReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) =>
-        Promise<TournamentListResponseSchema> | TournamentListResponseSchema),
+      ) => Promise<TournamentListReply> | TournamentListReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -13355,11 +13316,10 @@ export const getTournamentControllerHandleTournamentListMockHandler = (
 
 export const getTournamentControllerHandleTournamentInfoMockHandler = (
   overrideResponse?:
-    | TournamentInfoResponseSchema
+    | TournamentInfoReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) =>
-        Promise<TournamentInfoResponseSchema> | TournamentInfoResponseSchema),
+      ) => Promise<TournamentInfoReply> | TournamentInfoReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -13380,12 +13340,10 @@ export const getTournamentControllerHandleTournamentInfoMockHandler = (
 
 export const getTournamentControllerHandleTournamentUpdateMockHandler = (
   overrideResponse?:
-    | TournamentUpdateResponseSchema
+    | TournamentUpdateReply
     | ((
         info: Parameters<Parameters<typeof http.patch>[1]>[0],
-      ) =>
-        | Promise<TournamentUpdateResponseSchema>
-        | TournamentUpdateResponseSchema),
+      ) => Promise<TournamentUpdateReply> | TournamentUpdateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.patch(
@@ -13406,12 +13364,10 @@ export const getTournamentControllerHandleTournamentUpdateMockHandler = (
 
 export const getTournamentControllerHandleTournamentScheduleMockHandler = (
   overrideResponse?:
-    | TournamentScheduleResponseSchema
+    | TournamentScheduleReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) =>
-        | Promise<TournamentScheduleResponseSchema>
-        | TournamentScheduleResponseSchema),
+      ) => Promise<TournamentScheduleReply> | TournamentScheduleReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -13432,11 +13388,10 @@ export const getTournamentControllerHandleTournamentScheduleMockHandler = (
 
 export const getTournamentControllerHandleTournamentStartMockHandler = (
   overrideResponse?:
-    | TournamentStartResponseSchema
+    | TournamentStartReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) =>
-        Promise<TournamentStartResponseSchema> | TournamentStartResponseSchema),
+      ) => Promise<TournamentStartReply> | TournamentStartReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -13457,12 +13412,10 @@ export const getTournamentControllerHandleTournamentStartMockHandler = (
 
 export const getTournamentControllerHandleTournamentFinishMockHandler = (
   overrideResponse?:
-    | TournamentFinishResponseSchema
+    | TournamentFinishReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) =>
-        | Promise<TournamentFinishResponseSchema>
-        | TournamentFinishResponseSchema),
+      ) => Promise<TournamentFinishReply> | TournamentFinishReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -13483,12 +13436,10 @@ export const getTournamentControllerHandleTournamentFinishMockHandler = (
 
 export const getTournamentControllerHandleTournamentCancelMockHandler = (
   overrideResponse?:
-    | TournamentCancelResponseSchema
+    | TournamentCancelReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) =>
-        | Promise<TournamentCancelResponseSchema>
-        | TournamentCancelResponseSchema),
+      ) => Promise<TournamentCancelReply> | TournamentCancelReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -13509,11 +13460,10 @@ export const getTournamentControllerHandleTournamentCancelMockHandler = (
 
 export const getTerminalControllerHandleTerminalCreateMockHandler = (
   overrideResponse?:
-    | TerminalCreateResponseSchema
+    | TerminalCreateReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) =>
-        Promise<TerminalCreateResponseSchema> | TerminalCreateResponseSchema),
+      ) => Promise<TerminalCreateReply> | TerminalCreateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -13534,10 +13484,10 @@ export const getTerminalControllerHandleTerminalCreateMockHandler = (
 
 export const getTerminalControllerHandleTerminalListMockHandler = (
   overrideResponse?:
-    | TerminalListResponseSchema
+    | TerminalListReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<TerminalListResponseSchema> | TerminalListResponseSchema),
+      ) => Promise<TerminalListReply> | TerminalListReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -13558,10 +13508,10 @@ export const getTerminalControllerHandleTerminalListMockHandler = (
 
 export const getTerminalControllerHandleTerminalInfoMockHandler = (
   overrideResponse?:
-    | TerminalInfoResponseSchema
+    | TerminalInfoReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<TerminalInfoResponseSchema> | TerminalInfoResponseSchema),
+      ) => Promise<TerminalInfoReply> | TerminalInfoReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -13582,11 +13532,10 @@ export const getTerminalControllerHandleTerminalInfoMockHandler = (
 
 export const getTerminalControllerHandleTerminalUpdateMockHandler = (
   overrideResponse?:
-    | TerminalUpdateResponseSchema
+    | TerminalUpdateReply
     | ((
         info: Parameters<Parameters<typeof http.patch>[1]>[0],
-      ) =>
-        Promise<TerminalUpdateResponseSchema> | TerminalUpdateResponseSchema),
+      ) => Promise<TerminalUpdateReply> | TerminalUpdateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.patch(
@@ -13607,10 +13556,10 @@ export const getTerminalControllerHandleTerminalUpdateMockHandler = (
 
 export const getOverlayControllerHandleOverlayCreateMockHandler = (
   overrideResponse?:
-    | OverlayCreateResponseSchema
+    | OverlayCreateReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<OverlayCreateResponseSchema> | OverlayCreateResponseSchema),
+      ) => Promise<OverlayCreateReply> | OverlayCreateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -13631,10 +13580,10 @@ export const getOverlayControllerHandleOverlayCreateMockHandler = (
 
 export const getOverlayControllerHandleOverlayListMockHandler = (
   overrideResponse?:
-    | OverlayListResponseSchema
+    | OverlayListReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<OverlayListResponseSchema> | OverlayListResponseSchema),
+      ) => Promise<OverlayListReply> | OverlayListReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -13655,10 +13604,10 @@ export const getOverlayControllerHandleOverlayListMockHandler = (
 
 export const getOverlayControllerHandleOverlayInfoMockHandler = (
   overrideResponse?:
-    | OverlayInfoResponseSchema
+    | OverlayInfoReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<OverlayInfoResponseSchema> | OverlayInfoResponseSchema),
+      ) => Promise<OverlayInfoReply> | OverlayInfoReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -13679,10 +13628,10 @@ export const getOverlayControllerHandleOverlayInfoMockHandler = (
 
 export const getOverlayControllerHandleOverlayUpdateMockHandler = (
   overrideResponse?:
-    | OverlayUpdateResponseSchema
+    | OverlayUpdateReply
     | ((
         info: Parameters<Parameters<typeof http.patch>[1]>[0],
-      ) => Promise<OverlayUpdateResponseSchema> | OverlayUpdateResponseSchema),
+      ) => Promise<OverlayUpdateReply> | OverlayUpdateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.patch(
@@ -13703,20 +13652,23 @@ export const getOverlayControllerHandleOverlayUpdateMockHandler = (
 
 export const getHealthControllerHandleHealthCheckMockHandler = (
   overrideResponse?:
-    | void
+    | HealthCheckReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<void> | void),
+      ) => Promise<HealthCheckReply> | HealthCheckReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
     "*/health/check",
     async (info: Parameters<Parameters<typeof http.get>[1]>[0]) => {
-      if (typeof overrideResponse === "function") {
-        await overrideResponse(info);
-      }
-
-      return new HttpResponse(null, { status: 200 });
+      return HttpResponse.json(
+        overrideResponse !== undefined
+          ? typeof overrideResponse === "function"
+            ? await overrideResponse(info)
+            : overrideResponse
+          : getHealthControllerHandleHealthCheckResponseMock(),
+        { status: 200 },
+      );
     },
     options,
   );
@@ -13724,10 +13676,10 @@ export const getHealthControllerHandleHealthCheckMockHandler = (
 
 export const getStreamControllerHandleStreamCreateMockHandler = (
   overrideResponse?:
-    | StreamCreateResponseSchema
+    | StreamCreateReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<StreamCreateResponseSchema> | StreamCreateResponseSchema),
+      ) => Promise<StreamCreateReply> | StreamCreateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -13748,10 +13700,10 @@ export const getStreamControllerHandleStreamCreateMockHandler = (
 
 export const getStreamControllerHandleStreamListMockHandler = (
   overrideResponse?:
-    | StreamListResponseSchema
+    | StreamListReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<StreamListResponseSchema> | StreamListResponseSchema),
+      ) => Promise<StreamListReply> | StreamListReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -13772,10 +13724,10 @@ export const getStreamControllerHandleStreamListMockHandler = (
 
 export const getStreamControllerHandleStreamInfoMockHandler = (
   overrideResponse?:
-    | StreamInfoResponseSchema
+    | StreamInfoReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<StreamInfoResponseSchema> | StreamInfoResponseSchema),
+      ) => Promise<StreamInfoReply> | StreamInfoReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -13796,10 +13748,10 @@ export const getStreamControllerHandleStreamInfoMockHandler = (
 
 export const getStreamControllerHandleStreamUpdateMockHandler = (
   overrideResponse?:
-    | StreamUpdateResponseSchema
+    | StreamUpdateReply
     | ((
         info: Parameters<Parameters<typeof http.patch>[1]>[0],
-      ) => Promise<StreamUpdateResponseSchema> | StreamUpdateResponseSchema),
+      ) => Promise<StreamUpdateReply> | StreamUpdateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.patch(
@@ -13820,10 +13772,10 @@ export const getStreamControllerHandleStreamUpdateMockHandler = (
 
 export const getBoxerControllerHandleBoxerCreateMockHandler = (
   overrideResponse?:
-    | BoxerCreateResponseSchema
+    | BoxerCreateReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<BoxerCreateResponseSchema> | BoxerCreateResponseSchema),
+      ) => Promise<BoxerCreateReply> | BoxerCreateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -13844,10 +13796,10 @@ export const getBoxerControllerHandleBoxerCreateMockHandler = (
 
 export const getBoxerControllerHandleBoxerListMockHandler = (
   overrideResponse?:
-    | BoxerListResponseSchema
+    | BoxerListReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<BoxerListResponseSchema> | BoxerListResponseSchema),
+      ) => Promise<BoxerListReply> | BoxerListReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -13868,10 +13820,10 @@ export const getBoxerControllerHandleBoxerListMockHandler = (
 
 export const getBoxerControllerHandleBoxerInfoMockHandler = (
   overrideResponse?:
-    | BoxerInfoResponseSchema
+    | BoxerInfoReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<BoxerInfoResponseSchema> | BoxerInfoResponseSchema),
+      ) => Promise<BoxerInfoReply> | BoxerInfoReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -13892,10 +13844,10 @@ export const getBoxerControllerHandleBoxerInfoMockHandler = (
 
 export const getBoxerControllerHandleBoxerUpdateMockHandler = (
   overrideResponse?:
-    | BoxerUpdateResponseSchema
+    | BoxerUpdateReply
     | ((
         info: Parameters<Parameters<typeof http.patch>[1]>[0],
-      ) => Promise<BoxerUpdateResponseSchema> | BoxerUpdateResponseSchema),
+      ) => Promise<BoxerUpdateReply> | BoxerUpdateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.patch(
@@ -13916,10 +13868,10 @@ export const getBoxerControllerHandleBoxerUpdateMockHandler = (
 
 export const getEventControllerHandleEventCreateMockHandler = (
   overrideResponse?:
-    | EventCreateResponseSchema
+    | EventCreateReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<EventCreateResponseSchema> | EventCreateResponseSchema),
+      ) => Promise<EventCreateReply> | EventCreateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -13940,10 +13892,10 @@ export const getEventControllerHandleEventCreateMockHandler = (
 
 export const getEventControllerHandleEventListMockHandler = (
   overrideResponse?:
-    | EventListResponseSchema
+    | EventListReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<EventListResponseSchema> | EventListResponseSchema),
+      ) => Promise<EventListReply> | EventListReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -13964,10 +13916,10 @@ export const getEventControllerHandleEventListMockHandler = (
 
 export const getEventControllerHandleEventInfoMockHandler = (
   overrideResponse?:
-    | EventInfoResponseSchema
+    | EventInfoReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<EventInfoResponseSchema> | EventInfoResponseSchema),
+      ) => Promise<EventInfoReply> | EventInfoReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -13988,10 +13940,10 @@ export const getEventControllerHandleEventInfoMockHandler = (
 
 export const getEventControllerHandleEventUpdateMockHandler = (
   overrideResponse?:
-    | EventUpdateResponseSchema
+    | EventUpdateReply
     | ((
         info: Parameters<Parameters<typeof http.patch>[1]>[0],
-      ) => Promise<EventUpdateResponseSchema> | EventUpdateResponseSchema),
+      ) => Promise<EventUpdateReply> | EventUpdateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.patch(
@@ -14012,10 +13964,10 @@ export const getEventControllerHandleEventUpdateMockHandler = (
 
 export const getEventControllerHandleEventScheduleMockHandler = (
   overrideResponse?:
-    | EventScheduleResponseSchema
+    | EventScheduleReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<EventScheduleResponseSchema> | EventScheduleResponseSchema),
+      ) => Promise<EventScheduleReply> | EventScheduleReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -14036,10 +13988,10 @@ export const getEventControllerHandleEventScheduleMockHandler = (
 
 export const getEventControllerHandleEventStartMockHandler = (
   overrideResponse?:
-    | EventStartResponseSchema
+    | EventStartReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<EventStartResponseSchema> | EventStartResponseSchema),
+      ) => Promise<EventStartReply> | EventStartReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -14060,10 +14012,10 @@ export const getEventControllerHandleEventStartMockHandler = (
 
 export const getEventControllerHandleEventFinishMockHandler = (
   overrideResponse?:
-    | EventFinishResponseSchema
+    | EventFinishReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<EventFinishResponseSchema> | EventFinishResponseSchema),
+      ) => Promise<EventFinishReply> | EventFinishReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -14084,10 +14036,10 @@ export const getEventControllerHandleEventFinishMockHandler = (
 
 export const getEventControllerHandleEventCancelMockHandler = (
   overrideResponse?:
-    | EventCancelResponseSchema
+    | EventCancelReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<EventCancelResponseSchema> | EventCancelResponseSchema),
+      ) => Promise<EventCancelReply> | EventCancelReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -14108,10 +14060,10 @@ export const getEventControllerHandleEventCancelMockHandler = (
 
 export const getVenueControllerHandleVenueCreateMockHandler = (
   overrideResponse?:
-    | VenueCreateResponseSchema
+    | VenueCreateReply
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<VenueCreateResponseSchema> | VenueCreateResponseSchema),
+      ) => Promise<VenueCreateReply> | VenueCreateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
@@ -14132,10 +14084,10 @@ export const getVenueControllerHandleVenueCreateMockHandler = (
 
 export const getVenueControllerHandleVenueListMockHandler = (
   overrideResponse?:
-    | VenueListResponseSchema
+    | VenueListReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<VenueListResponseSchema> | VenueListResponseSchema),
+      ) => Promise<VenueListReply> | VenueListReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -14156,10 +14108,10 @@ export const getVenueControllerHandleVenueListMockHandler = (
 
 export const getVenueControllerHandleVenueInfoMockHandler = (
   overrideResponse?:
-    | VenueInfoResponseSchema
+    | VenueInfoReply
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<VenueInfoResponseSchema> | VenueInfoResponseSchema),
+      ) => Promise<VenueInfoReply> | VenueInfoReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
@@ -14180,10 +14132,10 @@ export const getVenueControllerHandleVenueInfoMockHandler = (
 
 export const getVenueControllerHandleVenueUpdateMockHandler = (
   overrideResponse?:
-    | VenueUpdateResponseSchema
+    | VenueUpdateReply
     | ((
         info: Parameters<Parameters<typeof http.patch>[1]>[0],
-      ) => Promise<VenueUpdateResponseSchema> | VenueUpdateResponseSchema),
+      ) => Promise<VenueUpdateReply> | VenueUpdateReply),
   options?: RequestHandlerOptions,
 ) => {
   return http.patch(

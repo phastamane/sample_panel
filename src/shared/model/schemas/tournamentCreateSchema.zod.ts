@@ -7,20 +7,18 @@
  */
 import { z as zod } from "zod";
 
-export const TournamentCreateSchema = zod
-  .object({
-    data: zod
-      .object({
-        tournament: zod
-          .object({
-            timeout: zod.number(),
-            title: zod.string(),
-          })
-          .describe("Tournament"),
-      })
-      .describe("Data"),
-  })
-  .describe("Create");
+export const TournamentCreateSchema = zod.object({
+  data: zod
+    .object({
+      tournament: zod
+        .object({
+          timeout: zod.number().describe("Timeout"),
+          title: zod.string().describe("Title"),
+        })
+        .describe("Tournament"),
+    })
+    .describe("Data"),
+});
 
 export type TournamentCreateSchema = zod.input<typeof TournamentCreateSchema>;
 export type TournamentCreateSchemaOutput = zod.output<

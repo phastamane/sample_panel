@@ -7,23 +7,21 @@
  */
 import { z as zod } from "zod";
 
-export const VenueCreateSchema = zod
-  .object({
-    data: zod
-      .object({
-        venue: zod
-          .object({
-            terminalId: zod.string(),
-            overlayId: zod.string(),
-            streamId: zod.string(),
-            title: zod.string(),
-            key: zod.string(),
-          })
-          .describe("Venue"),
-      })
-      .describe("Data"),
-  })
-  .describe("Create");
+export const VenueCreateSchema = zod.object({
+  data: zod
+    .object({
+      venue: zod
+        .object({
+          terminalId: zod.string().describe("Terminal"),
+          overlayId: zod.string().describe("Overlay"),
+          streamId: zod.string().describe("Stream"),
+          title: zod.string().describe("Title"),
+          key: zod.string().describe("Key"),
+        })
+        .describe("Venue"),
+    })
+    .describe("Data"),
+});
 
 export type VenueCreateSchema = zod.input<typeof VenueCreateSchema>;
 export type VenueCreateSchemaOutput = zod.output<typeof VenueCreateSchema>;

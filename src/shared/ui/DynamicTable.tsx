@@ -1,34 +1,40 @@
-import React from "react";
-import { useBoxerControllerHandleBoxerList } from "../shared/model/petstore";
 import {
+  flexRender,
   getCoreRowModel,
   useReactTable,
-  flexRender,
 } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
+import type { ConfigInterface } from "../model/schemas/configInterface";
+import { Spinner } from "@/components/ui/spinner";
 
-function Table() {
-  const { data, isError, isPending } = useBoxerControllerHandleBoxerList();
-  const boxers = data?.data?.data?.boxers || [];
+function DynamicTable<TData, TRow extends object>({
+  config,
+}: {
+  config: ConfigInterface<TData, TRow>;
+}) {
+  const { data, isLoading, isError } = config.table.useHook();
+
+  const rows = data ? config.table.getRows(data) : [];
+
   const table = useReactTable({
-    data: boxers,
-    columns: [
-      {
-        header: "ID",
-        accessorKey: "id", // Ключ из ответа бэкенда
-      },
-      {
-        header: "Имя боксера",
-        accessorKey: "fullname",
-      },
-      {
-        header: "Действия",
-        id: "actions",
-        // Здесь можно будет рендерить кнопки "Редактировать / Удалить"
-      },
-    ],
+    data: rows,
+    columns: config.table.columns.map((col) => ({
+      header: col.header,
+      accessorKey: col.accessorKey,
+    })),
     getCoreRowModel: getCoreRowModel(),
   });
+
+  if (isLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
+  if (isError) {
+    return <div>Произошла ошибка{isError.valueOf()}</div>;
+  }
+
   return (
     <div className="overflow-x-auto border rounded-lg shadow-sm m-2">
       <table className="min-w-full divide-y divide-gray-200">
@@ -66,7 +72,6 @@ function Table() {
         </tbody>
       </table>
 
-      {/* Заглушка, если бэкенд вернул пустой массив */}
       {table.getRowModel().rows.length === 0 && (
         <div className="p-8 text-center text-gray-500">
           Нет данных для отображения
@@ -76,4 +81,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default DynamicTable;

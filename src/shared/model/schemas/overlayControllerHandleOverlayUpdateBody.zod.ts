@@ -8,12 +8,16 @@
 import { z as zod } from "zod";
 
 export const OverlayControllerHandleOverlayUpdateBody = zod.object({
-  data: zod.object({
-    overlay: zod.object({
-      title: zod.string().optional(),
-      url: zod.string().optional(),
-    }),
-  }),
+  data: zod
+    .object({
+      overlay: zod
+        .object({
+          title: zod.string().optional().describe("Title"),
+          url: zod.string().optional().describe("Url"),
+        })
+        .describe("Overlay"),
+    })
+    .describe("Data"),
 });
 
 export type OverlayControllerHandleOverlayUpdateBody = zod.input<

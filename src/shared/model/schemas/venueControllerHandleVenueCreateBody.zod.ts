@@ -8,15 +8,19 @@
 import { z as zod } from "zod";
 
 export const VenueControllerHandleVenueCreateBody = zod.object({
-  data: zod.object({
-    venue: zod.object({
-      terminalId: zod.string(),
-      overlayId: zod.string(),
-      streamId: zod.string(),
-      title: zod.string(),
-      key: zod.string(),
-    }),
-  }),
+  data: zod
+    .object({
+      venue: zod
+        .object({
+          terminalId: zod.string().describe("Terminal"),
+          overlayId: zod.string().describe("Overlay"),
+          streamId: zod.string().describe("Stream"),
+          title: zod.string().describe("Title"),
+          key: zod.string().describe("Key"),
+        })
+        .describe("Venue"),
+    })
+    .describe("Data"),
 });
 
 export type VenueControllerHandleVenueCreateBody = zod.input<

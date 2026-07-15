@@ -7,21 +7,25 @@
  */
 import { z as zod } from "zod";
 
-export const EventUpdateSchema = zod
-  .object({
-    data: zod
-      .object({
-        event: zod
-          .object({
-            schedule: zod.iso.datetime({ offset: true }).optional(),
-            title: zod.string().optional(),
-            mode: zod.enum(["UNKNOWN", "MANUAL", "AUTO"]).optional(),
-          })
-          .describe("Event"),
-      })
-      .describe("Data"),
-  })
-  .describe("Update");
+export const EventUpdateSchema = zod.object({
+  data: zod
+    .object({
+      event: zod
+        .object({
+          schedule: zod.iso
+            .datetime({ offset: true })
+            .optional()
+            .describe("Schedule"),
+          title: zod.string().optional().describe("Title"),
+          mode: zod
+            .enum(["UNKNOWN", "MANUAL", "AUTO"])
+            .optional()
+            .describe("Mode"),
+        })
+        .describe("Event"),
+    })
+    .describe("Data"),
+});
 
 export type EventUpdateSchema = zod.input<typeof EventUpdateSchema>;
 export type EventUpdateSchemaOutput = zod.output<typeof EventUpdateSchema>;

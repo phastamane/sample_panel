@@ -8,12 +8,16 @@
 import { z as zod } from "zod";
 
 export const TerminalControllerHandleTerminalCreateBody = zod.object({
-  data: zod.object({
-    terminal: zod.object({
-      title: zod.string(),
-      url: zod.string(),
-    }),
-  }),
+  data: zod
+    .object({
+      terminal: zod
+        .object({
+          title: zod.string().describe("Title"),
+          url: zod.string().describe("Url"),
+        })
+        .describe("Terminal"),
+    })
+    .describe("Data"),
 });
 
 export type TerminalControllerHandleTerminalCreateBody = zod.input<

@@ -7,23 +7,21 @@
  */
 import { z as zod } from "zod";
 
-export const StreamCreateSchema = zod
-  .object({
-    data: zod
-      .object({
-        stream: zod
-          .object({
-            username: zod.string(),
-            password: zod.string(),
-            title: zod.string(),
-            http: zod.string(),
-            rtmp: zod.string(),
-          })
-          .describe("Stream"),
-      })
-      .describe("Data"),
-  })
-  .describe("Create");
+export const StreamCreateSchema = zod.object({
+  data: zod
+    .object({
+      stream: zod
+        .object({
+          username: zod.string().describe("Username"),
+          password: zod.string().describe("Password"),
+          title: zod.string().describe("Title"),
+          http: zod.string().describe("Http"),
+          rtmp: zod.string().describe("Rtmp"),
+        })
+        .describe("Stream"),
+    })
+    .describe("Data"),
+});
 
 export type StreamCreateSchema = zod.input<typeof StreamCreateSchema>;
 export type StreamCreateSchemaOutput = zod.output<typeof StreamCreateSchema>;

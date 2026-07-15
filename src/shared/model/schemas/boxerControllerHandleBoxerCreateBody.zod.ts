@@ -8,11 +8,15 @@
 import { z as zod } from "zod";
 
 export const BoxerControllerHandleBoxerCreateBody = zod.object({
-  data: zod.object({
-    boxer: zod.object({
-      fullname: zod.string(),
-    }),
-  }),
+  data: zod
+    .object({
+      boxer: zod
+        .object({
+          fullname: zod.string().describe("Fullname"),
+        })
+        .describe("Boxer"),
+    })
+    .describe("Data"),
 });
 
 export type BoxerControllerHandleBoxerCreateBody = zod.input<

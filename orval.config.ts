@@ -14,6 +14,7 @@ export default defineConfig({
           path: "./src/shared/api/fetcher.ts",
           name: "customFetch",
         },
+
         query: {
           useQuery: true,
           useMutation: false,

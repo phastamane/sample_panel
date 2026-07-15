@@ -8,13 +8,17 @@
 import { z as zod } from "zod";
 
 export const TournamentControllerHandleTournamentUpdateBody = zod.object({
-  data: zod.object({
-    tournament: zod.object({
-      timeout: zod.number().optional(),
-      title: zod.string().optional(),
-      url: zod.string().optional(),
-    }),
-  }),
+  data: zod
+    .object({
+      tournament: zod
+        .object({
+          timeout: zod.number().optional().describe("Timeout"),
+          title: zod.string().optional().describe("Title"),
+          url: zod.string().optional().describe("Url"),
+        })
+        .describe("Tournament"),
+    })
+    .describe("Data"),
 });
 
 export type TournamentControllerHandleTournamentUpdateBody = zod.input<

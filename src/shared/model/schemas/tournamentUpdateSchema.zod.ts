@@ -7,21 +7,19 @@
  */
 import { z as zod } from "zod";
 
-export const TournamentUpdateSchema = zod
-  .object({
-    data: zod
-      .object({
-        tournament: zod
-          .object({
-            timeout: zod.number().optional(),
-            title: zod.string().optional(),
-            url: zod.string().optional(),
-          })
-          .describe("Tournament"),
-      })
-      .describe("Data"),
-  })
-  .describe("Update");
+export const TournamentUpdateSchema = zod.object({
+  data: zod
+    .object({
+      tournament: zod
+        .object({
+          timeout: zod.number().optional().describe("Timeout"),
+          title: zod.string().optional().describe("Title"),
+          url: zod.string().optional().describe("Url"),
+        })
+        .describe("Tournament"),
+    })
+    .describe("Data"),
+});
 
 export type TournamentUpdateSchema = zod.input<typeof TournamentUpdateSchema>;
 export type TournamentUpdateSchemaOutput = zod.output<

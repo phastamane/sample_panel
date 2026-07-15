@@ -7,20 +7,18 @@
  */
 import { z as zod } from "zod";
 
-export const VenueUpdateSchema = zod
-  .object({
-    data: zod
-      .object({
-        venue: zod
-          .object({
-            title: zod.string().optional(),
-            key: zod.string().optional(),
-          })
-          .describe("Venue"),
-      })
-      .describe("Data"),
-  })
-  .describe("Update");
+export const VenueUpdateSchema = zod.object({
+  data: zod
+    .object({
+      venue: zod
+        .object({
+          title: zod.string().optional().describe("Title"),
+          key: zod.string().optional().describe("Key"),
+        })
+        .describe("Venue"),
+    })
+    .describe("Data"),
+});
 
 export type VenueUpdateSchema = zod.input<typeof VenueUpdateSchema>;
 export type VenueUpdateSchemaOutput = zod.output<typeof VenueUpdateSchema>;
