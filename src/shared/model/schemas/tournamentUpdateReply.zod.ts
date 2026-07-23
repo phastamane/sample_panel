@@ -14,9 +14,6 @@ export const TournamentUpdateReply = zod.object({
         .object({
           tournamentId: zod.string().describe("Tournament"),
           timeout: zod.number().describe("Timeout"),
-          status: zod
-            .enum(["SCHEDULED", "CANCELLED", "FINISHED", "UNKNOWN", "STARTED"])
-            .describe("Status"),
           title: zod.string().describe("Title"),
           url: zod.string().describe("Url"),
           updatedAt: zod.iso.datetime({ offset: true }).describe("Updated"),

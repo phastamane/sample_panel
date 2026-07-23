@@ -10,9 +10,6 @@ import { z as zod } from "zod";
 export const TournamentCreateReplyDataTournament = zod.object({
   tournamentId: zod.string().describe("Tournament"),
   timeout: zod.number().describe("Timeout"),
-  status: zod
-    .enum(["SCHEDULED", "CANCELLED", "FINISHED", "UNKNOWN", "STARTED"])
-    .describe("Status"),
   title: zod.string().describe("Title"),
   url: zod.string().describe("Url"),
   updatedAt: zod.iso.datetime({ offset: true }).describe("Updated"),

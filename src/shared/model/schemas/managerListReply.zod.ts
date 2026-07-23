@@ -7,21 +7,23 @@
  */
 import { z as zod } from "zod";
 
-export const TournamentListReply = zod.object({
+export const ManagerListReply = zod.object({
   data: zod
     .object({
-      tournaments: zod
+      managers: zod
         .array(
           zod.object({
-            tournamentId: zod.string().describe("Tournament"),
-            timeout: zod.number().describe("Timeout"),
-            title: zod.string().describe("Title"),
-            url: zod.string().describe("Url"),
+            managerId: zod.string().describe("Manager"),
+            fullname: zod.string().describe("Fullname"),
+            username: zod.string().describe("Username"),
+            role: zod
+              .enum(["OPERATOR", "UNKNOWN", "MANAGER", "JUDGE", "ROOT"])
+              .describe("Role"),
             updatedAt: zod.iso.datetime({ offset: true }).describe("Updated"),
             createdAt: zod.iso.datetime({ offset: true }).describe("Created"),
           }),
         )
-        .describe("Tournaments"),
+        .describe("Managers"),
     })
     .describe("Data"),
   meta: zod
@@ -31,5 +33,5 @@ export const TournamentListReply = zod.object({
     .describe("Meta"),
 });
 
-export type TournamentListReply = zod.input<typeof TournamentListReply>;
-export type TournamentListReplyOutput = zod.output<typeof TournamentListReply>;
+export type ManagerListReply = zod.input<typeof ManagerListReply>;
+export type ManagerListReplyOutput = zod.output<typeof ManagerListReply>;

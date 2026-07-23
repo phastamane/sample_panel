@@ -52,6 +52,13 @@ import type {
   EventUpdateReply,
   EventUpdateSchema,
   HealthCheckReply,
+  ManagerAuthReply,
+  ManagerAuthSchema,
+  ManagerControllerHandleManagerListParams,
+  ManagerCreateReply,
+  ManagerCreateSchema,
+  ManagerInfoReply,
+  ManagerListReply,
   OverlayControllerHandleOverlayListParams,
   OverlayCreateReply,
   OverlayCreateSchema,
@@ -73,15 +80,11 @@ import type {
   TerminalListReply,
   TerminalUpdateReply,
   TerminalUpdateSchema,
-  TournamentCancelReply,
   TournamentControllerHandleTournamentListParams,
   TournamentCreateReply,
   TournamentCreateSchema,
-  TournamentFinishReply,
   TournamentInfoReply,
   TournamentListReply,
-  TournamentScheduleReply,
-  TournamentStartReply,
   TournamentUpdateReply,
   TournamentUpdateSchema,
   VenueControllerHandleVenueListParams,
@@ -1648,890 +1651,6 @@ export const invalidateTournamentControllerHandleTournamentUpdate = async (
   return queryClient;
 };
 
-export type tournamentControllerHandleTournamentScheduleResponse202 = {
-  data: TournamentScheduleReply;
-  status: 202;
-};
-
-export type tournamentControllerHandleTournamentScheduleResponseSuccess =
-  tournamentControllerHandleTournamentScheduleResponse202 & {
-    headers: Headers;
-  };
-export type tournamentControllerHandleTournamentScheduleResponse =
-  tournamentControllerHandleTournamentScheduleResponseSuccess;
-
-export const getTournamentControllerHandleTournamentScheduleUrl = (
-  tournamentId: string,
-) => {
-  return `/tournament/${tournamentId}/schedule`;
-};
-
-export const tournamentControllerHandleTournamentSchedule = async (
-  tournamentId: string,
-  options?: RequestInit,
-): Promise<tournamentControllerHandleTournamentScheduleResponse> => {
-  return customFetch<tournamentControllerHandleTournamentScheduleResponse>(
-    getTournamentControllerHandleTournamentScheduleUrl(tournamentId),
-    {
-      ...options,
-      method: "POST",
-    },
-  );
-};
-
-export const getTournamentControllerHandleTournamentScheduleQueryKey = (
-  tournamentId: string,
-) => {
-  return ["POST", `/tournament/${tournamentId}/schedule`] as const;
-};
-
-export const getTournamentControllerHandleTournamentScheduleQueryOptions = <
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<
-          ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-        >,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
-
-  const queryKey =
-    queryOptions?.queryKey ??
-    getTournamentControllerHandleTournamentScheduleQueryKey(tournamentId);
-
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof tournamentControllerHandleTournamentSchedule>>
-  > = ({ signal }) =>
-    tournamentControllerHandleTournamentSchedule(tournamentId, {
-      signal,
-      ...requestOptions,
-    });
-
-  return {
-    queryKey,
-    queryFn,
-    enabled: tournamentId !== null && tournamentId !== undefined,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof tournamentControllerHandleTournamentSchedule>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
-
-export type TournamentControllerHandleTournamentScheduleQueryResult =
-  NonNullable<
-    Awaited<ReturnType<typeof tournamentControllerHandleTournamentSchedule>>
-  >;
-export type TournamentControllerHandleTournamentScheduleQueryError = unknown;
-
-export function useTournamentControllerHandleTournamentSchedule<
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<
-          ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-        >,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<
-            ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-          >,
-          TError,
-          Awaited<
-            ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-          >
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useTournamentControllerHandleTournamentSchedule<
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<
-          ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-        >,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<
-            ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-          >,
-          TError,
-          Awaited<
-            ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-          >
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useTournamentControllerHandleTournamentSchedule<
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<
-          ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-        >,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-
-export function useTournamentControllerHandleTournamentSchedule<
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<
-          ReturnType<typeof tournamentControllerHandleTournamentSchedule>
-        >,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions =
-    getTournamentControllerHandleTournamentScheduleQueryOptions(
-      tournamentId,
-      options,
-    );
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return withQueryKey(query, queryOptions.queryKey);
-}
-
-export const invalidateTournamentControllerHandleTournamentSchedule = async (
-  queryClient: QueryClient,
-  tournamentId: string,
-  options?: InvalidateOptions,
-): Promise<QueryClient> => {
-  await queryClient.invalidateQueries(
-    {
-      queryKey:
-        getTournamentControllerHandleTournamentScheduleQueryKey(tournamentId),
-    },
-    options,
-  );
-
-  return queryClient;
-};
-
-export type tournamentControllerHandleTournamentStartResponse202 = {
-  data: TournamentStartReply;
-  status: 202;
-};
-
-export type tournamentControllerHandleTournamentStartResponseSuccess =
-  tournamentControllerHandleTournamentStartResponse202 & {
-    headers: Headers;
-  };
-export type tournamentControllerHandleTournamentStartResponse =
-  tournamentControllerHandleTournamentStartResponseSuccess;
-
-export const getTournamentControllerHandleTournamentStartUrl = (
-  tournamentId: string,
-) => {
-  return `/tournament/${tournamentId}/start`;
-};
-
-export const tournamentControllerHandleTournamentStart = async (
-  tournamentId: string,
-  options?: RequestInit,
-): Promise<tournamentControllerHandleTournamentStartResponse> => {
-  return customFetch<tournamentControllerHandleTournamentStartResponse>(
-    getTournamentControllerHandleTournamentStartUrl(tournamentId),
-    {
-      ...options,
-      method: "POST",
-    },
-  );
-};
-
-export const getTournamentControllerHandleTournamentStartQueryKey = (
-  tournamentId: string,
-) => {
-  return ["POST", `/tournament/${tournamentId}/start`] as const;
-};
-
-export const getTournamentControllerHandleTournamentStartQueryOptions = <
-  TData = Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
-
-  const queryKey =
-    queryOptions?.queryKey ??
-    getTournamentControllerHandleTournamentStartQueryKey(tournamentId);
-
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>
-  > = ({ signal }) =>
-    tournamentControllerHandleTournamentStart(tournamentId, {
-      signal,
-      ...requestOptions,
-    });
-
-  return {
-    queryKey,
-    queryFn,
-    enabled: tournamentId !== null && tournamentId !== undefined,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
-
-export type TournamentControllerHandleTournamentStartQueryResult = NonNullable<
-  Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>
->;
-export type TournamentControllerHandleTournamentStartQueryError = unknown;
-
-export function useTournamentControllerHandleTournamentStart<
-  TData = Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>,
-  TError = unknown,
->(
-  tournamentId: string,
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>,
-          TError,
-          Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useTournamentControllerHandleTournamentStart<
-  TData = Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>,
-          TError,
-          Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useTournamentControllerHandleTournamentStart<
-  TData = Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-
-export function useTournamentControllerHandleTournamentStart<
-  TData = Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentStart>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getTournamentControllerHandleTournamentStartQueryOptions(
-    tournamentId,
-    options,
-  );
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return withQueryKey(query, queryOptions.queryKey);
-}
-
-export const invalidateTournamentControllerHandleTournamentStart = async (
-  queryClient: QueryClient,
-  tournamentId: string,
-  options?: InvalidateOptions,
-): Promise<QueryClient> => {
-  await queryClient.invalidateQueries(
-    {
-      queryKey:
-        getTournamentControllerHandleTournamentStartQueryKey(tournamentId),
-    },
-    options,
-  );
-
-  return queryClient;
-};
-
-export type tournamentControllerHandleTournamentFinishResponse202 = {
-  data: TournamentFinishReply;
-  status: 202;
-};
-
-export type tournamentControllerHandleTournamentFinishResponseSuccess =
-  tournamentControllerHandleTournamentFinishResponse202 & {
-    headers: Headers;
-  };
-export type tournamentControllerHandleTournamentFinishResponse =
-  tournamentControllerHandleTournamentFinishResponseSuccess;
-
-export const getTournamentControllerHandleTournamentFinishUrl = (
-  tournamentId: string,
-) => {
-  return `/tournament/${tournamentId}/finish`;
-};
-
-export const tournamentControllerHandleTournamentFinish = async (
-  tournamentId: string,
-  options?: RequestInit,
-): Promise<tournamentControllerHandleTournamentFinishResponse> => {
-  return customFetch<tournamentControllerHandleTournamentFinishResponse>(
-    getTournamentControllerHandleTournamentFinishUrl(tournamentId),
-    {
-      ...options,
-      method: "POST",
-    },
-  );
-};
-
-export const getTournamentControllerHandleTournamentFinishQueryKey = (
-  tournamentId: string,
-) => {
-  return ["POST", `/tournament/${tournamentId}/finish`] as const;
-};
-
-export const getTournamentControllerHandleTournamentFinishQueryOptions = <
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentFinish>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentFinish>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
-
-  const queryKey =
-    queryOptions?.queryKey ??
-    getTournamentControllerHandleTournamentFinishQueryKey(tournamentId);
-
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof tournamentControllerHandleTournamentFinish>>
-  > = ({ signal }) =>
-    tournamentControllerHandleTournamentFinish(tournamentId, {
-      signal,
-      ...requestOptions,
-    });
-
-  return {
-    queryKey,
-    queryFn,
-    enabled: tournamentId !== null && tournamentId !== undefined,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof tournamentControllerHandleTournamentFinish>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
-
-export type TournamentControllerHandleTournamentFinishQueryResult = NonNullable<
-  Awaited<ReturnType<typeof tournamentControllerHandleTournamentFinish>>
->;
-export type TournamentControllerHandleTournamentFinishQueryError = unknown;
-
-export function useTournamentControllerHandleTournamentFinish<
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentFinish>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentFinish>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<
-            ReturnType<typeof tournamentControllerHandleTournamentFinish>
-          >,
-          TError,
-          Awaited<ReturnType<typeof tournamentControllerHandleTournamentFinish>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useTournamentControllerHandleTournamentFinish<
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentFinish>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentFinish>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<
-            ReturnType<typeof tournamentControllerHandleTournamentFinish>
-          >,
-          TError,
-          Awaited<ReturnType<typeof tournamentControllerHandleTournamentFinish>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useTournamentControllerHandleTournamentFinish<
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentFinish>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentFinish>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-
-export function useTournamentControllerHandleTournamentFinish<
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentFinish>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentFinish>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions =
-    getTournamentControllerHandleTournamentFinishQueryOptions(
-      tournamentId,
-      options,
-    );
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return withQueryKey(query, queryOptions.queryKey);
-}
-
-export const invalidateTournamentControllerHandleTournamentFinish = async (
-  queryClient: QueryClient,
-  tournamentId: string,
-  options?: InvalidateOptions,
-): Promise<QueryClient> => {
-  await queryClient.invalidateQueries(
-    {
-      queryKey:
-        getTournamentControllerHandleTournamentFinishQueryKey(tournamentId),
-    },
-    options,
-  );
-
-  return queryClient;
-};
-
-export type tournamentControllerHandleTournamentCancelResponse202 = {
-  data: TournamentCancelReply;
-  status: 202;
-};
-
-export type tournamentControllerHandleTournamentCancelResponseSuccess =
-  tournamentControllerHandleTournamentCancelResponse202 & {
-    headers: Headers;
-  };
-export type tournamentControllerHandleTournamentCancelResponse =
-  tournamentControllerHandleTournamentCancelResponseSuccess;
-
-export const getTournamentControllerHandleTournamentCancelUrl = (
-  tournamentId: string,
-) => {
-  return `/tournament/${tournamentId}/cancel`;
-};
-
-export const tournamentControllerHandleTournamentCancel = async (
-  tournamentId: string,
-  options?: RequestInit,
-): Promise<tournamentControllerHandleTournamentCancelResponse> => {
-  return customFetch<tournamentControllerHandleTournamentCancelResponse>(
-    getTournamentControllerHandleTournamentCancelUrl(tournamentId),
-    {
-      ...options,
-      method: "POST",
-    },
-  );
-};
-
-export const getTournamentControllerHandleTournamentCancelQueryKey = (
-  tournamentId: string,
-) => {
-  return ["POST", `/tournament/${tournamentId}/cancel`] as const;
-};
-
-export const getTournamentControllerHandleTournamentCancelQueryOptions = <
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentCancel>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentCancel>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
-
-  const queryKey =
-    queryOptions?.queryKey ??
-    getTournamentControllerHandleTournamentCancelQueryKey(tournamentId);
-
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof tournamentControllerHandleTournamentCancel>>
-  > = ({ signal }) =>
-    tournamentControllerHandleTournamentCancel(tournamentId, {
-      signal,
-      ...requestOptions,
-    });
-
-  return {
-    queryKey,
-    queryFn,
-    enabled: tournamentId !== null && tournamentId !== undefined,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof tournamentControllerHandleTournamentCancel>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
-
-export type TournamentControllerHandleTournamentCancelQueryResult = NonNullable<
-  Awaited<ReturnType<typeof tournamentControllerHandleTournamentCancel>>
->;
-export type TournamentControllerHandleTournamentCancelQueryError = unknown;
-
-export function useTournamentControllerHandleTournamentCancel<
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentCancel>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentCancel>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<
-            ReturnType<typeof tournamentControllerHandleTournamentCancel>
-          >,
-          TError,
-          Awaited<ReturnType<typeof tournamentControllerHandleTournamentCancel>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useTournamentControllerHandleTournamentCancel<
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentCancel>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentCancel>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<
-            ReturnType<typeof tournamentControllerHandleTournamentCancel>
-          >,
-          TError,
-          Awaited<ReturnType<typeof tournamentControllerHandleTournamentCancel>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useTournamentControllerHandleTournamentCancel<
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentCancel>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentCancel>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-
-export function useTournamentControllerHandleTournamentCancel<
-  TData = Awaited<
-    ReturnType<typeof tournamentControllerHandleTournamentCancel>
-  >,
-  TError = unknown,
->(
-  tournamentId: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof tournamentControllerHandleTournamentCancel>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  },
-  queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions =
-    getTournamentControllerHandleTournamentCancelQueryOptions(
-      tournamentId,
-      options,
-    );
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return withQueryKey(query, queryOptions.queryKey);
-}
-
-export const invalidateTournamentControllerHandleTournamentCancel = async (
-  queryClient: QueryClient,
-  tournamentId: string,
-  options?: InvalidateOptions,
-): Promise<QueryClient> => {
-  await queryClient.invalidateQueries(
-    {
-      queryKey:
-        getTournamentControllerHandleTournamentCancelQueryKey(tournamentId),
-    },
-    options,
-  );
-
-  return queryClient;
-};
-
 export type terminalControllerHandleTerminalCreateResponse201 = {
   data: TerminalCreateReply;
   status: 201;
@@ -4004,6 +3123,1411 @@ export const invalidateTerminalControllerHandleTerminalUpdate = async (
 
   return queryClient;
 };
+
+export type managerControllerHandleManagerAuthResponse200 = {
+  data: ManagerAuthReply;
+  status: 200;
+};
+
+export type managerControllerHandleManagerAuthResponseSuccess =
+  managerControllerHandleManagerAuthResponse200 & {
+    headers: Headers;
+  };
+export type managerControllerHandleManagerAuthResponse =
+  managerControllerHandleManagerAuthResponseSuccess;
+
+export const getManagerControllerHandleManagerAuthUrl = () => {
+  return `/manager/auth`;
+};
+
+export const managerControllerHandleManagerAuth = async (
+  managerAuthSchema: ManagerAuthSchema,
+  options?: RequestInit,
+): Promise<managerControllerHandleManagerAuthResponse> => {
+  return customFetch<managerControllerHandleManagerAuthResponse>(
+    getManagerControllerHandleManagerAuthUrl(),
+    {
+      ...options,
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...options?.headers },
+      body: JSON.stringify(managerAuthSchema),
+    },
+  );
+};
+
+export const getManagerControllerHandleManagerAuthQueryKey = (
+  managerAuthSchema?: ManagerAuthSchema,
+) => {
+  return ["POST", `/manager/auth`, managerAuthSchema] as const;
+};
+
+export const getManagerControllerHandleManagerAuthQueryOptions = <
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>,
+  TError = unknown,
+>(
+  managerAuthSchema: ManagerAuthSchema,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getManagerControllerHandleManagerAuthQueryKey(managerAuthSchema);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>
+  > = ({ signal }) =>
+    managerControllerHandleManagerAuth(managerAuthSchema, {
+      signal,
+      ...requestOptions,
+    });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ManagerControllerHandleManagerAuthQueryResult = NonNullable<
+  Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>
+>;
+export type ManagerControllerHandleManagerAuthQueryError = unknown;
+
+export function useManagerControllerHandleManagerAuth<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>,
+  TError = unknown,
+>(
+  managerAuthSchema: ManagerAuthSchema,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>,
+          TError,
+          Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerAuth<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>,
+  TError = unknown,
+>(
+  managerAuthSchema: ManagerAuthSchema,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>,
+          TError,
+          Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerAuth<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>,
+  TError = unknown,
+>(
+  managerAuthSchema: ManagerAuthSchema,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+
+export function useManagerControllerHandleManagerAuth<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>,
+  TError = unknown,
+>(
+  managerAuthSchema: ManagerAuthSchema,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerAuth>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getManagerControllerHandleManagerAuthQueryOptions(
+    managerAuthSchema,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+export const invalidateManagerControllerHandleManagerAuth = async (
+  queryClient: QueryClient,
+  managerAuthSchema: ManagerAuthSchema,
+  options?: InvalidateOptions,
+): Promise<QueryClient> => {
+  await queryClient.invalidateQueries(
+    {
+      queryKey:
+        getManagerControllerHandleManagerAuthQueryKey(managerAuthSchema),
+    },
+    options,
+  );
+
+  return queryClient;
+};
+
+export type managerControllerHandleManagerInfoResponse200 = {
+  data: ManagerInfoReply;
+  status: 200;
+};
+
+export type managerControllerHandleManagerInfoResponseSuccess =
+  managerControllerHandleManagerInfoResponse200 & {
+    headers: Headers;
+  };
+export type managerControllerHandleManagerInfoResponse =
+  managerControllerHandleManagerInfoResponseSuccess;
+
+export const getManagerControllerHandleManagerInfoUrl = () => {
+  return `/manager/info`;
+};
+
+export const managerControllerHandleManagerInfo = async (
+  options?: RequestInit,
+): Promise<managerControllerHandleManagerInfoResponse> => {
+  return customFetch<managerControllerHandleManagerInfoResponse>(
+    getManagerControllerHandleManagerInfoUrl(),
+    {
+      ...options,
+      method: "GET",
+    },
+  );
+};
+
+export const getManagerControllerHandleManagerInfoQueryKey = () => {
+  return [`/manager/info`] as const;
+};
+
+export const getManagerControllerHandleManagerInfoQueryOptions = <
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+  TError = unknown,
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+      TError,
+      TData
+    >
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getManagerControllerHandleManagerInfoQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>
+  > = ({ signal }) =>
+    managerControllerHandleManagerInfo({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ManagerControllerHandleManagerInfoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>
+>;
+export type ManagerControllerHandleManagerInfoQueryError = unknown;
+
+export function useManagerControllerHandleManagerInfo<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+  TError = unknown,
+>(
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+          TError,
+          Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerInfo<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+  TError = unknown,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+          TError,
+          Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerInfo<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+  TError = unknown,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+
+export function useManagerControllerHandleManagerInfo<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+  TError = unknown,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions =
+    getManagerControllerHandleManagerInfoQueryOptions(options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+export const invalidateManagerControllerHandleManagerInfo = async (
+  queryClient: QueryClient,
+  options?: InvalidateOptions,
+): Promise<QueryClient> => {
+  await queryClient.invalidateQueries(
+    { queryKey: getManagerControllerHandleManagerInfoQueryKey() },
+    options,
+  );
+
+  return queryClient;
+};
+
+export const getManagerControllerHandleManagerInfoSuspenseQueryOptions = <
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+  TError = unknown,
+>(options?: {
+  query?: Partial<
+    UseSuspenseQueryOptions<
+      Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+      TError,
+      TData
+    >
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getManagerControllerHandleManagerInfoQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>
+  > = ({ signal }) =>
+    managerControllerHandleManagerInfo({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseSuspenseQueryOptions<
+    Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ManagerControllerHandleManagerInfoSuspenseQueryResult = NonNullable<
+  Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>
+>;
+export type ManagerControllerHandleManagerInfoSuspenseQueryError = unknown;
+
+export function useManagerControllerHandleManagerInfoSuspense<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+  TError = unknown,
+>(
+  options: {
+    query: Partial<
+      UseSuspenseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseSuspenseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerInfoSuspense<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+  TError = unknown,
+>(
+  options?: {
+    query?: Partial<
+      UseSuspenseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseSuspenseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerInfoSuspense<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+  TError = unknown,
+>(
+  options?: {
+    query?: Partial<
+      UseSuspenseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseSuspenseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+
+export function useManagerControllerHandleManagerInfoSuspense<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+  TError = unknown,
+>(
+  options?: {
+    query?: Partial<
+      UseSuspenseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerInfo>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseSuspenseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions =
+    getManagerControllerHandleManagerInfoSuspenseQueryOptions(options);
+
+  const query = useSuspenseQuery(
+    queryOptions,
+    queryClient,
+  ) as UseSuspenseQueryResult<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+export type managerControllerHandleManagerCreateResponse201 = {
+  data: ManagerCreateReply;
+  status: 201;
+};
+
+export type managerControllerHandleManagerCreateResponseSuccess =
+  managerControllerHandleManagerCreateResponse201 & {
+    headers: Headers;
+  };
+export type managerControllerHandleManagerCreateResponse =
+  managerControllerHandleManagerCreateResponseSuccess;
+
+export const getManagerControllerHandleManagerCreateUrl = () => {
+  return `/manager/create`;
+};
+
+export const managerControllerHandleManagerCreate = async (
+  managerCreateSchema: ManagerCreateSchema,
+  options?: RequestInit,
+): Promise<managerControllerHandleManagerCreateResponse> => {
+  return customFetch<managerControllerHandleManagerCreateResponse>(
+    getManagerControllerHandleManagerCreateUrl(),
+    {
+      ...options,
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...options?.headers },
+      body: JSON.stringify(managerCreateSchema),
+    },
+  );
+};
+
+export const getManagerControllerHandleManagerCreateQueryKey = (
+  managerCreateSchema?: ManagerCreateSchema,
+) => {
+  return ["POST", `/manager/create`, managerCreateSchema] as const;
+};
+
+export const getManagerControllerHandleManagerCreateQueryOptions = <
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>,
+  TError = unknown,
+>(
+  managerCreateSchema: ManagerCreateSchema,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getManagerControllerHandleManagerCreateQueryKey(managerCreateSchema);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>
+  > = ({ signal }) =>
+    managerControllerHandleManagerCreate(managerCreateSchema, {
+      signal,
+      ...requestOptions,
+    });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ManagerControllerHandleManagerCreateQueryResult = NonNullable<
+  Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>
+>;
+export type ManagerControllerHandleManagerCreateQueryError = unknown;
+
+export function useManagerControllerHandleManagerCreate<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>,
+  TError = unknown,
+>(
+  managerCreateSchema: ManagerCreateSchema,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>,
+          TError,
+          Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerCreate<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>,
+  TError = unknown,
+>(
+  managerCreateSchema: ManagerCreateSchema,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>,
+          TError,
+          Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerCreate<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>,
+  TError = unknown,
+>(
+  managerCreateSchema: ManagerCreateSchema,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+
+export function useManagerControllerHandleManagerCreate<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>,
+  TError = unknown,
+>(
+  managerCreateSchema: ManagerCreateSchema,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerCreate>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getManagerControllerHandleManagerCreateQueryOptions(
+    managerCreateSchema,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+export const invalidateManagerControllerHandleManagerCreate = async (
+  queryClient: QueryClient,
+  managerCreateSchema: ManagerCreateSchema,
+  options?: InvalidateOptions,
+): Promise<QueryClient> => {
+  await queryClient.invalidateQueries(
+    {
+      queryKey:
+        getManagerControllerHandleManagerCreateQueryKey(managerCreateSchema),
+    },
+    options,
+  );
+
+  return queryClient;
+};
+
+export type managerControllerHandleManagerListResponse200 = {
+  data: ManagerListReply;
+  status: 200;
+};
+
+export type managerControllerHandleManagerListResponseSuccess =
+  managerControllerHandleManagerListResponse200 & {
+    headers: Headers;
+  };
+export type managerControllerHandleManagerListResponse =
+  managerControllerHandleManagerListResponseSuccess;
+
+export const getManagerControllerHandleManagerListUrl = (
+  params?: ManagerControllerHandleManagerListParams,
+) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? "null" : String(value));
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0
+    ? `/manager/list?${stringifiedParams}`
+    : `/manager/list`;
+};
+
+export const managerControllerHandleManagerList = async (
+  params?: ManagerControllerHandleManagerListParams,
+  options?: RequestInit,
+): Promise<managerControllerHandleManagerListResponse> => {
+  return customFetch<managerControllerHandleManagerListResponse>(
+    getManagerControllerHandleManagerListUrl(params),
+    {
+      ...options,
+      method: "GET",
+    },
+  );
+};
+
+export const getManagerControllerHandleManagerListInfiniteQueryKey = (
+  params?: ManagerControllerHandleManagerListParams,
+) => {
+  return ["infinite", `/manager/list`, ...(params ? [params] : [])] as const;
+};
+
+export const getManagerControllerHandleManagerListQueryKey = (
+  params?: ManagerControllerHandleManagerListParams,
+) => {
+  return [`/manager/list`, ...(params ? [params] : [])] as const;
+};
+
+export const getManagerControllerHandleManagerListInfiniteQueryOptions = <
+  TData = InfiniteData<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+    ManagerControllerHandleManagerListParams["skip"]
+  >,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData,
+        QueryKey,
+        ManagerControllerHandleManagerListParams["skip"]
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getManagerControllerHandleManagerListInfiniteQueryKey(params);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+    QueryKey,
+    ManagerControllerHandleManagerListParams["skip"]
+  > = ({ signal, pageParam }) =>
+    managerControllerHandleManagerList(
+      { ...params, skip: pageParam ?? params?.["skip"] },
+      { signal, ...requestOptions },
+    );
+
+  return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+    TError,
+    TData,
+    QueryKey,
+    ManagerControllerHandleManagerListParams["skip"]
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ManagerControllerHandleManagerListInfiniteQueryResult = NonNullable<
+  Awaited<ReturnType<typeof managerControllerHandleManagerList>>
+>;
+export type ManagerControllerHandleManagerListInfiniteQueryError = unknown;
+
+export function useManagerControllerHandleManagerListInfinite<
+  TData = InfiniteData<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+    ManagerControllerHandleManagerListParams["skip"]
+  >,
+  TError = unknown,
+>(
+  params: undefined | ManagerControllerHandleManagerListParams,
+  options: {
+    query: Partial<
+      UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData,
+        QueryKey,
+        ManagerControllerHandleManagerListParams["skip"]
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+          TError,
+          Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+          QueryKey
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseInfiniteQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerListInfinite<
+  TData = InfiniteData<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+    ManagerControllerHandleManagerListParams["skip"]
+  >,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData,
+        QueryKey,
+        ManagerControllerHandleManagerListParams["skip"]
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+          TError,
+          Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+          QueryKey
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerListInfinite<
+  TData = InfiniteData<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+    ManagerControllerHandleManagerListParams["skip"]
+  >,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData,
+        QueryKey,
+        ManagerControllerHandleManagerListParams["skip"]
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+
+export function useManagerControllerHandleManagerListInfinite<
+  TData = InfiniteData<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+    ManagerControllerHandleManagerListParams["skip"]
+  >,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData,
+        QueryKey,
+        ManagerControllerHandleManagerListParams["skip"]
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseInfiniteQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions =
+    getManagerControllerHandleManagerListInfiniteQueryOptions(params, options);
+
+  const query = useInfiniteQuery(
+    queryOptions,
+    queryClient,
+  ) as UseInfiniteQueryResult<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+export const invalidateManagerControllerHandleManagerListInfinite = async (
+  queryClient: QueryClient,
+  params?: ManagerControllerHandleManagerListParams,
+  options?: InvalidateOptions,
+): Promise<QueryClient> => {
+  await queryClient.invalidateQueries(
+    { queryKey: getManagerControllerHandleManagerListInfiniteQueryKey(params) },
+    options,
+  );
+
+  return queryClient;
+};
+
+export const getManagerControllerHandleManagerListQueryOptions = <
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getManagerControllerHandleManagerListQueryKey(params);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>
+  > = ({ signal }) =>
+    managerControllerHandleManagerList(params, { signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ManagerControllerHandleManagerListQueryResult = NonNullable<
+  Awaited<ReturnType<typeof managerControllerHandleManagerList>>
+>;
+export type ManagerControllerHandleManagerListQueryError = unknown;
+
+export function useManagerControllerHandleManagerList<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+  TError = unknown,
+>(
+  params: undefined | ManagerControllerHandleManagerListParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+          TError,
+          Awaited<ReturnType<typeof managerControllerHandleManagerList>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerList<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+          TError,
+          Awaited<ReturnType<typeof managerControllerHandleManagerList>>
+        >,
+        "initialData"
+      >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerList<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+
+export function useManagerControllerHandleManagerList<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getManagerControllerHandleManagerListQueryOptions(
+    params,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+export const invalidateManagerControllerHandleManagerList = async (
+  queryClient: QueryClient,
+  params?: ManagerControllerHandleManagerListParams,
+  options?: InvalidateOptions,
+): Promise<QueryClient> => {
+  await queryClient.invalidateQueries(
+    { queryKey: getManagerControllerHandleManagerListQueryKey(params) },
+    options,
+  );
+
+  return queryClient;
+};
+
+export const getManagerControllerHandleManagerListSuspenseQueryOptions = <
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseSuspenseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getManagerControllerHandleManagerListQueryKey(params);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>
+  > = ({ signal }) =>
+    managerControllerHandleManagerList(params, { signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseSuspenseQueryOptions<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ManagerControllerHandleManagerListSuspenseQueryResult = NonNullable<
+  Awaited<ReturnType<typeof managerControllerHandleManagerList>>
+>;
+export type ManagerControllerHandleManagerListSuspenseQueryError = unknown;
+
+export function useManagerControllerHandleManagerListSuspense<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+  TError = unknown,
+>(
+  params: undefined | ManagerControllerHandleManagerListParams,
+  options: {
+    query: Partial<
+      UseSuspenseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseSuspenseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerListSuspense<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseSuspenseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseSuspenseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerListSuspense<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseSuspenseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseSuspenseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+
+export function useManagerControllerHandleManagerListSuspense<
+  TData = Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseSuspenseQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseSuspenseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions =
+    getManagerControllerHandleManagerListSuspenseQueryOptions(params, options);
+
+  const query = useSuspenseQuery(
+    queryOptions,
+    queryClient,
+  ) as UseSuspenseQueryResult<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+export const getManagerControllerHandleManagerListSuspenseInfiniteQueryOptions =
+  <
+    TData = InfiniteData<
+      Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+      ManagerControllerHandleManagerListParams["skip"]
+    >,
+    TError = unknown,
+  >(
+    params?: ManagerControllerHandleManagerListParams,
+    options?: {
+      query?: Partial<
+        UseSuspenseInfiniteQueryOptions<
+          Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+          TError,
+          TData,
+          QueryKey,
+          ManagerControllerHandleManagerListParams["skip"]
+        >
+      >;
+      request?: SecondParameter<typeof customFetch>;
+    },
+  ) => {
+    const { query: queryOptions, request: requestOptions } = options ?? {};
+
+    const queryKey =
+      queryOptions?.queryKey ??
+      getManagerControllerHandleManagerListInfiniteQueryKey(params);
+
+    const queryFn: QueryFunction<
+      Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+      QueryKey,
+      ManagerControllerHandleManagerListParams["skip"]
+    > = ({ signal, pageParam }) =>
+      managerControllerHandleManagerList(
+        { ...params, skip: pageParam ?? params?.["skip"] },
+        { signal, ...requestOptions },
+      );
+
+    return {
+      queryKey,
+      queryFn,
+      ...queryOptions,
+    } as UseSuspenseInfiniteQueryOptions<
+      Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+      TError,
+      TData,
+      QueryKey,
+      ManagerControllerHandleManagerListParams["skip"]
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
+  };
+
+export type ManagerControllerHandleManagerListSuspenseInfiniteQueryResult =
+  NonNullable<Awaited<ReturnType<typeof managerControllerHandleManagerList>>>;
+export type ManagerControllerHandleManagerListSuspenseInfiniteQueryError =
+  unknown;
+
+export function useManagerControllerHandleManagerListSuspenseInfinite<
+  TData = InfiniteData<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+    ManagerControllerHandleManagerListParams["skip"]
+  >,
+  TError = unknown,
+>(
+  params: undefined | ManagerControllerHandleManagerListParams,
+  options: {
+    query: Partial<
+      UseSuspenseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData,
+        QueryKey,
+        ManagerControllerHandleManagerListParams["skip"]
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseSuspenseInfiniteQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerListSuspenseInfinite<
+  TData = InfiniteData<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+    ManagerControllerHandleManagerListParams["skip"]
+  >,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseSuspenseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData,
+        QueryKey,
+        ManagerControllerHandleManagerListParams["skip"]
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseSuspenseInfiniteQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useManagerControllerHandleManagerListSuspenseInfinite<
+  TData = InfiniteData<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+    ManagerControllerHandleManagerListParams["skip"]
+  >,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseSuspenseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData,
+        QueryKey,
+        ManagerControllerHandleManagerListParams["skip"]
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseSuspenseInfiniteQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+
+export function useManagerControllerHandleManagerListSuspenseInfinite<
+  TData = InfiniteData<
+    Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+    ManagerControllerHandleManagerListParams["skip"]
+  >,
+  TError = unknown,
+>(
+  params?: ManagerControllerHandleManagerListParams,
+  options?: {
+    query?: Partial<
+      UseSuspenseInfiniteQueryOptions<
+        Awaited<ReturnType<typeof managerControllerHandleManagerList>>,
+        TError,
+        TData,
+        QueryKey,
+        ManagerControllerHandleManagerListParams["skip"]
+      >
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+  queryClient?: QueryClient,
+): UseSuspenseInfiniteQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions =
+    getManagerControllerHandleManagerListSuspenseInfiniteQueryOptions(
+      params,
+      options,
+    );
+
+  const query = useSuspenseInfiniteQuery(
+    queryOptions,
+    queryClient,
+  ) as UseSuspenseInfiniteQueryResult<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
 
 export type overlayControllerHandleOverlayCreateResponse201 = {
   data: OverlayCreateReply;
@@ -12364,13 +12888,6 @@ export const getTournamentControllerHandleTournamentCreateResponseMock = (
         ...{
           tournamentId: faker.string.alpha({ length: { min: 10, max: 20 } }),
           timeout: faker.number.float({ fractionDigits: 2 }),
-          status: faker.helpers.arrayElement([
-            "SCHEDULED",
-            "CANCELLED",
-            "FINISHED",
-            "UNKNOWN",
-            "STARTED",
-          ] as const),
           title: faker.string.alpha({ length: { min: 10, max: 20 } }),
           url: faker.string.alpha({ length: { min: 10, max: 20 } }),
           updatedAt: faker.date.past().toISOString().slice(0, 19) + "Z",
@@ -12393,13 +12910,6 @@ export const getTournamentControllerHandleTournamentListResponseMock = (
       ).map(() => ({
         tournamentId: faker.string.alpha({ length: { min: 10, max: 20 } }),
         timeout: faker.number.float({ fractionDigits: 2 }),
-        status: faker.helpers.arrayElement([
-          "SCHEDULED",
-          "CANCELLED",
-          "FINISHED",
-          "UNKNOWN",
-          "STARTED",
-        ] as const),
         title: faker.string.alpha({ length: { min: 10, max: 20 } }),
         url: faker.string.alpha({ length: { min: 10, max: 20 } }),
         updatedAt: faker.date.past().toISOString().slice(0, 19) + "Z",
@@ -12420,13 +12930,6 @@ export const getTournamentControllerHandleTournamentInfoResponseMock = (
         ...{
           tournamentId: faker.string.alpha({ length: { min: 10, max: 20 } }),
           timeout: faker.number.float({ fractionDigits: 2 }),
-          status: faker.helpers.arrayElement([
-            "SCHEDULED",
-            "CANCELLED",
-            "FINISHED",
-            "UNKNOWN",
-            "STARTED",
-          ] as const),
           title: faker.string.alpha({ length: { min: 10, max: 20 } }),
           url: faker.string.alpha({ length: { min: 10, max: 20 } }),
           updatedAt: faker.date.past().toISOString().slice(0, 19) + "Z",
@@ -12447,121 +12950,6 @@ export const getTournamentControllerHandleTournamentUpdateResponseMock = (
         ...{
           tournamentId: faker.string.alpha({ length: { min: 10, max: 20 } }),
           timeout: faker.number.float({ fractionDigits: 2 }),
-          status: faker.helpers.arrayElement([
-            "SCHEDULED",
-            "CANCELLED",
-            "FINISHED",
-            "UNKNOWN",
-            "STARTED",
-          ] as const),
-          title: faker.string.alpha({ length: { min: 10, max: 20 } }),
-          url: faker.string.alpha({ length: { min: 10, max: 20 } }),
-          updatedAt: faker.date.past().toISOString().slice(0, 19) + "Z",
-          createdAt: faker.date.past().toISOString().slice(0, 19) + "Z",
-        },
-      },
-    },
-  },
-  ...overrideResponse,
-});
-
-export const getTournamentControllerHandleTournamentScheduleResponseMock = (
-  overrideResponse: Partial<Extract<TournamentScheduleReply, object>> = {},
-): TournamentScheduleReply => ({
-  data: {
-    ...{
-      tournament: {
-        ...{
-          tournamentId: faker.string.alpha({ length: { min: 10, max: 20 } }),
-          timeout: faker.number.float({ fractionDigits: 2 }),
-          status: faker.helpers.arrayElement([
-            "SCHEDULED",
-            "CANCELLED",
-            "FINISHED",
-            "UNKNOWN",
-            "STARTED",
-          ] as const),
-          title: faker.string.alpha({ length: { min: 10, max: 20 } }),
-          url: faker.string.alpha({ length: { min: 10, max: 20 } }),
-          updatedAt: faker.date.past().toISOString().slice(0, 19) + "Z",
-          createdAt: faker.date.past().toISOString().slice(0, 19) + "Z",
-        },
-      },
-    },
-  },
-  ...overrideResponse,
-});
-
-export const getTournamentControllerHandleTournamentStartResponseMock = (
-  overrideResponse: Partial<Extract<TournamentStartReply, object>> = {},
-): TournamentStartReply => ({
-  data: {
-    ...{
-      tournament: {
-        ...{
-          tournamentId: faker.string.alpha({ length: { min: 10, max: 20 } }),
-          timeout: faker.number.float({ fractionDigits: 2 }),
-          status: faker.helpers.arrayElement([
-            "SCHEDULED",
-            "CANCELLED",
-            "FINISHED",
-            "UNKNOWN",
-            "STARTED",
-          ] as const),
-          title: faker.string.alpha({ length: { min: 10, max: 20 } }),
-          url: faker.string.alpha({ length: { min: 10, max: 20 } }),
-          updatedAt: faker.date.past().toISOString().slice(0, 19) + "Z",
-          createdAt: faker.date.past().toISOString().slice(0, 19) + "Z",
-        },
-      },
-    },
-  },
-  ...overrideResponse,
-});
-
-export const getTournamentControllerHandleTournamentFinishResponseMock = (
-  overrideResponse: Partial<Extract<TournamentFinishReply, object>> = {},
-): TournamentFinishReply => ({
-  data: {
-    ...{
-      tournament: {
-        ...{
-          tournamentId: faker.string.alpha({ length: { min: 10, max: 20 } }),
-          timeout: faker.number.float({ fractionDigits: 2 }),
-          status: faker.helpers.arrayElement([
-            "SCHEDULED",
-            "CANCELLED",
-            "FINISHED",
-            "UNKNOWN",
-            "STARTED",
-          ] as const),
-          title: faker.string.alpha({ length: { min: 10, max: 20 } }),
-          url: faker.string.alpha({ length: { min: 10, max: 20 } }),
-          updatedAt: faker.date.past().toISOString().slice(0, 19) + "Z",
-          createdAt: faker.date.past().toISOString().slice(0, 19) + "Z",
-        },
-      },
-    },
-  },
-  ...overrideResponse,
-});
-
-export const getTournamentControllerHandleTournamentCancelResponseMock = (
-  overrideResponse: Partial<Extract<TournamentCancelReply, object>> = {},
-): TournamentCancelReply => ({
-  data: {
-    ...{
-      tournament: {
-        ...{
-          tournamentId: faker.string.alpha({ length: { min: 10, max: 20 } }),
-          timeout: faker.number.float({ fractionDigits: 2 }),
-          status: faker.helpers.arrayElement([
-            "SCHEDULED",
-            "CANCELLED",
-            "FINISHED",
-            "UNKNOWN",
-            "STARTED",
-          ] as const),
           title: faker.string.alpha({ length: { min: 10, max: 20 } }),
           url: faker.string.alpha({ length: { min: 10, max: 20 } }),
           updatedAt: faker.date.past().toISOString().slice(0, 19) + "Z",
@@ -12648,6 +13036,113 @@ export const getTerminalControllerHandleTerminalUpdateResponseMock = (
       },
     },
   },
+  ...overrideResponse,
+});
+
+export const getManagerControllerHandleManagerAuthResponseMock = (
+  overrideResponse: Partial<Extract<ManagerAuthReply, object>> = {},
+): ManagerAuthReply => ({
+  data: {
+    ...{
+      manager: {
+        ...{
+          managerId: faker.string.alpha({ length: { min: 10, max: 20 } }),
+          fullname: faker.string.alpha({ length: { min: 10, max: 20 } }),
+          username: faker.string.alpha({ length: { min: 10, max: 20 } }),
+          role: faker.helpers.arrayElement([
+            "OPERATOR",
+            "UNKNOWN",
+            "MANAGER",
+            "JUDGE",
+            "ROOT",
+          ] as const),
+          updatedAt: faker.date.past().toISOString().slice(0, 19) + "Z",
+          createdAt: faker.date.past().toISOString().slice(0, 19) + "Z",
+        },
+      },
+    },
+  },
+  meta: { ...{ jwt: faker.string.alpha({ length: { min: 10, max: 20 } }) } },
+  ...overrideResponse,
+});
+
+export const getManagerControllerHandleManagerInfoResponseMock = (
+  overrideResponse: Partial<Extract<ManagerInfoReply, object>> = {},
+): ManagerInfoReply => ({
+  data: {
+    ...{
+      manager: {
+        ...{
+          managerId: faker.string.alpha({ length: { min: 10, max: 20 } }),
+          fullname: faker.string.alpha({ length: { min: 10, max: 20 } }),
+          username: faker.string.alpha({ length: { min: 10, max: 20 } }),
+          role: faker.helpers.arrayElement([
+            "OPERATOR",
+            "UNKNOWN",
+            "MANAGER",
+            "JUDGE",
+            "ROOT",
+          ] as const),
+          updatedAt: faker.date.past().toISOString().slice(0, 19) + "Z",
+          createdAt: faker.date.past().toISOString().slice(0, 19) + "Z",
+        },
+      },
+    },
+  },
+  ...overrideResponse,
+});
+
+export const getManagerControllerHandleManagerCreateResponseMock = (
+  overrideResponse: Partial<Extract<ManagerCreateReply, object>> = {},
+): ManagerCreateReply => ({
+  data: {
+    ...{
+      manager: {
+        ...{
+          managerId: faker.string.alpha({ length: { min: 10, max: 20 } }),
+          fullname: faker.string.alpha({ length: { min: 10, max: 20 } }),
+          username: faker.string.alpha({ length: { min: 10, max: 20 } }),
+          role: faker.helpers.arrayElement([
+            "OPERATOR",
+            "UNKNOWN",
+            "MANAGER",
+            "JUDGE",
+            "ROOT",
+          ] as const),
+          updatedAt: faker.date.past().toISOString().slice(0, 19) + "Z",
+          createdAt: faker.date.past().toISOString().slice(0, 19) + "Z",
+        },
+      },
+    },
+  },
+  ...overrideResponse,
+});
+
+export const getManagerControllerHandleManagerListResponseMock = (
+  overrideResponse: Partial<Extract<ManagerListReply, object>> = {},
+): ManagerListReply => ({
+  data: {
+    ...{
+      managers: Array.from(
+        { length: faker.number.int({ min: 1, max: 10 }) },
+        (_, i) => i + 1,
+      ).map(() => ({
+        managerId: faker.string.alpha({ length: { min: 10, max: 20 } }),
+        fullname: faker.string.alpha({ length: { min: 10, max: 20 } }),
+        username: faker.string.alpha({ length: { min: 10, max: 20 } }),
+        role: faker.helpers.arrayElement([
+          "OPERATOR",
+          "UNKNOWN",
+          "MANAGER",
+          "JUDGE",
+          "ROOT",
+        ] as const),
+        updatedAt: faker.date.past().toISOString().slice(0, 19) + "Z",
+        createdAt: faker.date.past().toISOString().slice(0, 19) + "Z",
+      })),
+    },
+  },
+  meta: { ...{ count: faker.number.float({ fractionDigits: 2 }) } },
   ...overrideResponse,
 });
 
@@ -13362,102 +13857,6 @@ export const getTournamentControllerHandleTournamentUpdateMockHandler = (
   );
 };
 
-export const getTournamentControllerHandleTournamentScheduleMockHandler = (
-  overrideResponse?:
-    | TournamentScheduleReply
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<TournamentScheduleReply> | TournamentScheduleReply),
-  options?: RequestHandlerOptions,
-) => {
-  return http.post(
-    "*/tournament/:tournamentId/schedule",
-    async (info: Parameters<Parameters<typeof http.post>[1]>[0]) => {
-      return HttpResponse.json(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === "function"
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getTournamentControllerHandleTournamentScheduleResponseMock(),
-        { status: 202 },
-      );
-    },
-    options,
-  );
-};
-
-export const getTournamentControllerHandleTournamentStartMockHandler = (
-  overrideResponse?:
-    | TournamentStartReply
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<TournamentStartReply> | TournamentStartReply),
-  options?: RequestHandlerOptions,
-) => {
-  return http.post(
-    "*/tournament/:tournamentId/start",
-    async (info: Parameters<Parameters<typeof http.post>[1]>[0]) => {
-      return HttpResponse.json(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === "function"
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getTournamentControllerHandleTournamentStartResponseMock(),
-        { status: 202 },
-      );
-    },
-    options,
-  );
-};
-
-export const getTournamentControllerHandleTournamentFinishMockHandler = (
-  overrideResponse?:
-    | TournamentFinishReply
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<TournamentFinishReply> | TournamentFinishReply),
-  options?: RequestHandlerOptions,
-) => {
-  return http.post(
-    "*/tournament/:tournamentId/finish",
-    async (info: Parameters<Parameters<typeof http.post>[1]>[0]) => {
-      return HttpResponse.json(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === "function"
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getTournamentControllerHandleTournamentFinishResponseMock(),
-        { status: 202 },
-      );
-    },
-    options,
-  );
-};
-
-export const getTournamentControllerHandleTournamentCancelMockHandler = (
-  overrideResponse?:
-    | TournamentCancelReply
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<TournamentCancelReply> | TournamentCancelReply),
-  options?: RequestHandlerOptions,
-) => {
-  return http.post(
-    "*/tournament/:tournamentId/cancel",
-    async (info: Parameters<Parameters<typeof http.post>[1]>[0]) => {
-      return HttpResponse.json(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === "function"
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getTournamentControllerHandleTournamentCancelResponseMock(),
-        { status: 202 },
-      );
-    },
-    options,
-  );
-};
-
 export const getTerminalControllerHandleTerminalCreateMockHandler = (
   overrideResponse?:
     | TerminalCreateReply
@@ -13547,6 +13946,102 @@ export const getTerminalControllerHandleTerminalUpdateMockHandler = (
             ? await overrideResponse(info)
             : overrideResponse
           : getTerminalControllerHandleTerminalUpdateResponseMock(),
+        { status: 200 },
+      );
+    },
+    options,
+  );
+};
+
+export const getManagerControllerHandleManagerAuthMockHandler = (
+  overrideResponse?:
+    | ManagerAuthReply
+    | ((
+        info: Parameters<Parameters<typeof http.post>[1]>[0],
+      ) => Promise<ManagerAuthReply> | ManagerAuthReply),
+  options?: RequestHandlerOptions,
+) => {
+  return http.post(
+    "*/manager/auth",
+    async (info: Parameters<Parameters<typeof http.post>[1]>[0]) => {
+      return HttpResponse.json(
+        overrideResponse !== undefined
+          ? typeof overrideResponse === "function"
+            ? await overrideResponse(info)
+            : overrideResponse
+          : getManagerControllerHandleManagerAuthResponseMock(),
+        { status: 200 },
+      );
+    },
+    options,
+  );
+};
+
+export const getManagerControllerHandleManagerInfoMockHandler = (
+  overrideResponse?:
+    | ManagerInfoReply
+    | ((
+        info: Parameters<Parameters<typeof http.get>[1]>[0],
+      ) => Promise<ManagerInfoReply> | ManagerInfoReply),
+  options?: RequestHandlerOptions,
+) => {
+  return http.get(
+    "*/manager/info",
+    async (info: Parameters<Parameters<typeof http.get>[1]>[0]) => {
+      return HttpResponse.json(
+        overrideResponse !== undefined
+          ? typeof overrideResponse === "function"
+            ? await overrideResponse(info)
+            : overrideResponse
+          : getManagerControllerHandleManagerInfoResponseMock(),
+        { status: 200 },
+      );
+    },
+    options,
+  );
+};
+
+export const getManagerControllerHandleManagerCreateMockHandler = (
+  overrideResponse?:
+    | ManagerCreateReply
+    | ((
+        info: Parameters<Parameters<typeof http.post>[1]>[0],
+      ) => Promise<ManagerCreateReply> | ManagerCreateReply),
+  options?: RequestHandlerOptions,
+) => {
+  return http.post(
+    "*/manager/create",
+    async (info: Parameters<Parameters<typeof http.post>[1]>[0]) => {
+      return HttpResponse.json(
+        overrideResponse !== undefined
+          ? typeof overrideResponse === "function"
+            ? await overrideResponse(info)
+            : overrideResponse
+          : getManagerControllerHandleManagerCreateResponseMock(),
+        { status: 201 },
+      );
+    },
+    options,
+  );
+};
+
+export const getManagerControllerHandleManagerListMockHandler = (
+  overrideResponse?:
+    | ManagerListReply
+    | ((
+        info: Parameters<Parameters<typeof http.get>[1]>[0],
+      ) => Promise<ManagerListReply> | ManagerListReply),
+  options?: RequestHandlerOptions,
+) => {
+  return http.get(
+    "*/manager/list",
+    async (info: Parameters<Parameters<typeof http.get>[1]>[0]) => {
+      return HttpResponse.json(
+        overrideResponse !== undefined
+          ? typeof overrideResponse === "function"
+            ? await overrideResponse(info)
+            : overrideResponse
+          : getManagerControllerHandleManagerListResponseMock(),
         { status: 200 },
       );
     },
@@ -14158,14 +14653,14 @@ export const getManagerDocumentationMock = () => [
   getTournamentControllerHandleTournamentListMockHandler(),
   getTournamentControllerHandleTournamentInfoMockHandler(),
   getTournamentControllerHandleTournamentUpdateMockHandler(),
-  getTournamentControllerHandleTournamentScheduleMockHandler(),
-  getTournamentControllerHandleTournamentStartMockHandler(),
-  getTournamentControllerHandleTournamentFinishMockHandler(),
-  getTournamentControllerHandleTournamentCancelMockHandler(),
   getTerminalControllerHandleTerminalCreateMockHandler(),
   getTerminalControllerHandleTerminalListMockHandler(),
   getTerminalControllerHandleTerminalInfoMockHandler(),
   getTerminalControllerHandleTerminalUpdateMockHandler(),
+  getManagerControllerHandleManagerAuthMockHandler(),
+  getManagerControllerHandleManagerInfoMockHandler(),
+  getManagerControllerHandleManagerCreateMockHandler(),
+  getManagerControllerHandleManagerListMockHandler(),
   getOverlayControllerHandleOverlayCreateMockHandler(),
   getOverlayControllerHandleOverlayListMockHandler(),
   getOverlayControllerHandleOverlayInfoMockHandler(),

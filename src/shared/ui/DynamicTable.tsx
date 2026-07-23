@@ -5,6 +5,14 @@ import {
 } from "@tanstack/react-table";
 import type { ConfigInterface } from "../model/schemas/configInterface";
 import { Spinner } from "@/components/ui/spinner";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+  TableCell,
+} from "@/components/ui/table";
 
 function DynamicTable<TData, TRow extends object>({
   config,
@@ -13,7 +21,7 @@ function DynamicTable<TData, TRow extends object>({
 }) {
   const { data, isLoading, isError } = config.table.useHook();
 
-  const rows = data ? config.table.getRows(data) : [];
+  const rows = data ? (config.table.getRows(data) ?? []) : [];
 
   const table = useReactTable({
     data: rows,
@@ -36,48 +44,45 @@ function DynamicTable<TData, TRow extends object>({
   }
 
   return (
-    <div className="overflow-x-auto border rounded-lg shadow-sm m-2">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+    <Table>
+      <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th
-                  key={header.id}
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
+                <TableHead key={header.id}>
                   {flexRender(
                     header.column.columnDef.header,
                     header.getContext(),
                   )}
-                </th>
+                </TableHead>
               ))}
-            </tr>
+            </TableRow>
           ))}
-        </thead>
+      </TableHeader>
 
-        <tbody className="bg-white divide-y divide-gray-200">
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="hover:bg-gray-50 transition-colors">
+      <TableBody>
+        {table.getRowModel().rows.length === 0 ? (
+          <TableRow>
+            <TableCell
+              colSpan={config.table.columns.length}
+              className="h-24 text-center text-muted-foreground"
+            >
+              Нет данных для отображения
+            </TableCell>
+          </TableRow>
+        ) : (
+          table.getRowModel().rows.map((row) => (
+            <TableRow key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td
-                  key={cell.id}
-                  className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
-                >
+                <TableCell key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
+                </TableCell>
               ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {table.getRowModel().rows.length === 0 && (
-        <div className="p-8 text-center text-gray-500">
-          Нет данных для отображения
-        </div>
-      )}
-    </div>
+            </TableRow>
+          ))
+        )}
+      </TableBody>
+    </Table>
   );
 }
 
