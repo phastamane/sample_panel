@@ -27,7 +27,8 @@ export default defineConfig({
       },
     },
     input: {
-      target: "http://192.168.1.223:3000/documentation-json",
+      target:
+        "https://api.manager.development.clp.cyberboxing.ru/documentation-json",
     },
   },
 });

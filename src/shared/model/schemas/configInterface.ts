@@ -1,13 +1,14 @@
-import type { UseQueryResult } from "@tanstack/react-query";
+import { type UseQueryResult } from "@tanstack/react-query";
 
-export type ConfigHook<TData = unknown> = (
-  ...args: any[]
-) => UseQueryResult<TData, any>;
+export type ConfigHook<TData, TParams = void> = TParams extends void
+  ? () => UseQueryResult<TData | undefined>
+  : (params: TParams) => UseQueryResult<TData | undefined>;
 
-export interface ConfigInterface<TData, TRow extends object> {
+export interface ConfigInterface<TData, TRow extends object, TParams = void> {
   entityName: string;
   table: {
-    useHook: ConfigHook<TData>;
+    useHook: ConfigHook<TData, TParams>;
+    params?: TParams;
     columns: { header: string; accessorKey: keyof TRow & string }[];
     getRows: (response: TData) => TRow[];
   };
