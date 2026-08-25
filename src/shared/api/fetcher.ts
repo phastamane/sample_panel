@@ -1,3 +1,4 @@
+import { getToken } from "../lib/getToken";
 import { API_BASE_URL } from "./base-url";
 
 export const customFetch = async <T>(
@@ -6,7 +7,7 @@ export const customFetch = async <T>(
 ): Promise<T> => {
   const headers = new Headers(options?.headers);
 
-  const token = import.meta.env.VITE_API_TOKEN;
+  const token = getToken();
   if (token) {
     // API expects raw JWT in Authorization (no "Bearer " prefix).
     headers.set("Authorization", token);
