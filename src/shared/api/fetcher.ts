@@ -1,4 +1,4 @@
-import { getToken } from "../lib/getToken";
+import { getToken } from "../lib/token";
 import { API_BASE_URL } from "./base-url";
 
 export const customFetch = async <T>(
@@ -16,6 +16,11 @@ export const customFetch = async <T>(
   const res = await fetch(`${API_BASE_URL}${url}`, { ...options, headers });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+
+  if (res.status === 401) {
+    localStorage.removeItem("token");
+  }
+
   const data = body ? JSON.parse(body) : {};
 
   return {

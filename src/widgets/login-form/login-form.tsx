@@ -23,7 +23,7 @@ function LoginForm() {
     await authApi(form);
   };
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-full">
       <form
         className="flex flex-col gap-2 max-w-lg mx-auto"
         onSubmit={handleSumbit}
