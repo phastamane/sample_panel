@@ -3,7 +3,7 @@ import { StreamTable } from "@/entities/streams";
 
 function MainPage() {
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <BoxerTable />
       <StreamTable />
     </div>

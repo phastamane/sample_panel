@@ -1,4 +1,14 @@
 import { defineConfig } from "orval";
+import { loadEnv } from "vite";
+
+const env = loadEnv("development", process.cwd(), "");
+const apiTarget = env.VITE_API_PROXY_TARGET;
+
+if (!apiTarget) {
+  throw new Error("VITE_API_PROXY_TARGET must be set in .env");
+}
+
+const openApiUrl = `${apiTarget.replace(/\/$/, "")}/documentation-json`;
 
 export default defineConfig({
   petstore: {
@@ -27,7 +37,7 @@ export default defineConfig({
       },
     },
     input: {
-      target: "http://192.168.1.223:3000/documentation-json",
+      target: openApiUrl,
     },
   },
 });
