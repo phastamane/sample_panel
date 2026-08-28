@@ -7,9 +7,11 @@ import {
 } from "@tanstack/react-router";
 import { getToken } from "@/shared/lib/token";
 import LoginForm from "@/widgets/login-form/login-form";
-import MainPage from "@/pages/main-page";
 import { NotFound } from "@/shared/ui/not-found";
 import { GlobalError } from "@/shared/ui/global-error";
+import { MainLayout } from "@/widgets/layouts/main-layout";
+import { BoxersPage } from "@/pages/boxer-page";
+import { StreamsPage } from "@/pages/stream-page";
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -34,18 +36,39 @@ const loginRoute = createRoute({
   ),
 });
 
-const indexRoute = createRoute({
+const protectedLayoutRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/",
+  id: "protected",
   beforeLoad: () => {
     if (!getToken()) {
       throw redirect({ to: "/login" });
     }
   },
-  component: () => <MainPage />,
+  component: () => <MainLayout />,
+});
+const indexRoute = createRoute({
+  getParentRoute: () => protectedLayoutRoute,
+  path: "/",
+  beforeLoad: () => {
+    throw redirect({ to: "/boxers" });
+  },
 });
 
-const routeTree = rootRoute.addChildren([loginRoute, indexRoute]);
+const boxersRoute = createRoute({
+  getParentRoute: () => protectedLayoutRoute,
+  path: "/boxers",
+  component: BoxersPage,
+});
+
+const streamsRoute = createRoute({
+  getParentRoute: () => protectedLayoutRoute,
+  path: "/streams",
+  component: StreamsPage,
+});
+const routeTree = rootRoute.addChildren([
+  loginRoute,
+  protectedLayoutRoute.addChildren([indexRoute, boxersRoute, streamsRoute]),
+]);
 
 export const router = createRouter({
   routeTree,
