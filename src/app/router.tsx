@@ -8,6 +8,8 @@ import {
 import { getToken } from "@/shared/lib/token";
 import LoginForm from "@/widgets/login-form/login-form";
 import MainPage from "@/pages/main-page";
+import { NotFound } from "@/shared/ui/not-found";
+import { GlobalError } from "@/shared/ui/global-error";
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -45,7 +47,11 @@ const indexRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([loginRoute, indexRoute]);
 
-export const router = createRouter({ routeTree });
+export const router = createRouter({
+  routeTree,
+  defaultNotFoundComponent: NotFound,
+  defaultErrorComponent: ({ error }) => <GlobalError error={error} />,
+});
 
 declare module "@tanstack/react-router" {
   interface Register {
