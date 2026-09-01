@@ -1,10 +1,27 @@
 import { type UseQueryResult } from "@tanstack/react-query";
+import type { ZodType } from "zod";
 
 export type ConfigHook<TData, TParams = void> = TParams extends void
   ? () => UseQueryResult<TData | undefined>
   : (params: TParams) => UseQueryResult<TData | undefined, Error | null>;
 
-export interface ConfigInterface<TData, TRow extends object, TParams = void> {
+// Типы поддерживаемых полей
+export type FieldType = "text" | "number" | "password";
+
+export interface FormField<TFormValues> {
+  name: keyof TFormValues & string;
+  label: string;
+  type: FieldType;
+  placeholder?: string;
+}
+
+export interface ConfigInterface<
+  TData,
+  TRow extends object,
+  TParams = void,
+  TFormValues extends Record<string, unknown> = Record<string, unknown>,
+  TMutationResponse = unknown,
+> {
   entityName: string;
   table: {
     useHook: ConfigHook<TData, TParams>;
@@ -12,11 +29,21 @@ export interface ConfigInterface<TData, TRow extends object, TParams = void> {
     columns: { header: string; accessorKey: keyof TRow & string }[];
     getRows: (response: TData) => TRow[];
   };
+  form?: {
+    schema: ZodType<TFormValues, TFormValues>;
+    mutationFn: (data: TFormValues) => Promise<TMutationResponse>;
+    fields: FormField<TFormValues>[];
+  };
 }
 
-/** Infers TData from the hook and TRow from getRows (avoids keyof never). */
-export function defineTableConfig<TData, TRow extends object, TParams = void>(
-  config: ConfigInterface<TData, TRow, TParams>,
-): ConfigInterface<TData, TRow, TParams> {
+export function defineTableConfig<
+  TData,
+  TRow extends object,
+  TParams = void,
+  TFormValues extends Record<string, unknown> = Record<string, unknown>,
+  TMutationResponse = unknown,
+>(
+  config: ConfigInterface<TData, TRow, TParams, TFormValues, TMutationResponse>,
+): ConfigInterface<TData, TRow, TParams, TFormValues, TMutationResponse> {
   return config;
 }

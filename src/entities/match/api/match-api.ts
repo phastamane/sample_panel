@@ -3,7 +3,7 @@ import { defineTableConfig } from "@/shared/model/schemas/configInterface";
 
 type MatchListResponse = Awaited<ReturnType<typeof matchControllerHandleMatchList>>
 type MatchRow = MatchListResponse["data"]["data"]['matches'][number]
-type MatchListParams = {skip?: number, take?: number}
+type MatchListParams =  Parameters<typeof useMatchControllerHandleMatchList>[0]
 
 export const matchConfig = defineTableConfig<MatchListResponse, MatchRow, MatchListParams>({
     entityName: "Боксеры",
