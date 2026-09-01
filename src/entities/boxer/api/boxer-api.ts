@@ -4,7 +4,6 @@ import {
 } from "@/shared/model/petstore";
 import {
   defineTableConfig,
-  type ConfigHook,
 } from "@/shared/model/schemas/configInterface";
 
 type BoxerListResponse = Awaited<
@@ -12,15 +11,13 @@ type BoxerListResponse = Awaited<
 >;
 type BoxerRow = BoxerListResponse["data"]["data"]["boxers"][number];
 
-const defaultListParams = { skip: 0, take: 10 } as const;
+type BoxerListParams = {skip?: number, take?:number}
 
-export const boxerConfig = defineTableConfig<BoxerListResponse, BoxerRow>({
+export const boxerConfig = defineTableConfig<BoxerListResponse, BoxerRow, BoxerListParams>({
   entityName: "Боксеры",
   table: {
-    useHook: (() =>
-      useBoxerControllerHandleBoxerList(
-        defaultListParams,
-      )) as ConfigHook<BoxerListResponse>,
+    useHook: (params) =>
+      useBoxerControllerHandleBoxerList(params),
     getRows: (res) => res.data.data.boxers,
     columns: [
       { header: "ID", accessorKey: "boxerId" },

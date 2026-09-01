@@ -12,6 +12,7 @@ import { GlobalError } from "@/shared/ui/global-error";
 import { MainLayout } from "@/widgets/layouts/main-layout";
 import { BoxersPage } from "@/pages/boxer-page";
 import { StreamsPage } from "@/pages/stream-page";
+import { MatchPage } from "@/pages/match-page";
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -65,9 +66,15 @@ const streamsRoute = createRoute({
   path: "/streams",
   component: StreamsPage,
 });
+
+const matchesRoute = createRoute({
+  getParentRoute: () => protectedLayoutRoute,
+  path: "/matches",
+  component: MatchPage,
+});
 const routeTree = rootRoute.addChildren([
   loginRoute,
-  protectedLayoutRoute.addChildren([indexRoute, boxersRoute, streamsRoute]),
+  protectedLayoutRoute.addChildren([indexRoute, boxersRoute, streamsRoute, matchesRoute]),
 ]);
 
 export const router = createRouter({

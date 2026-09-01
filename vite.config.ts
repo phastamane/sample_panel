@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
       port: 5183,
       proxy: apiTarget
         ? {
-            "^/(boxer|tournament|terminal|overlay|health|stream|event|venue|manager)(/|$)":
+            "^/(boxer|tournament|terminal|overlay|health|stream|match|event|venue|manager)(/|$)":
               {
                 target: apiTarget,
                 changeOrigin: true,
