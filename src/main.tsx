@@ -9,6 +9,9 @@ import { router } from "@/app/router";
 
 // Стили
 import "./index.css";
+import { initTheme } from "@/shared/lib/theme";
+
+initTheme();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

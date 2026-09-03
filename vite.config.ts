@@ -8,6 +8,22 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const apiTarget = env.VITE_API_PROXY_TARGET;
 
+  const apiPrefixes = [
+    "boxer",
+    "tournament",
+    "terminal",
+    "overlay",
+    "health",
+    "stream",
+    "match",
+    "round",
+    "event",
+    "venue",
+    "manager",
+    "tournament",
+  /* CLI_INJECT_PROXY */
+  ];
+
   if (mode === "development" && !apiTarget) {
     throw new Error("VITE_API_PROXY_TARGET must be set in .env");
   }
@@ -24,11 +40,10 @@ export default defineConfig(({ mode }) => {
       port: 5183,
       proxy: apiTarget
         ? {
-            "^/(boxer|tournament|terminal|overlay|health|stream|match|event|venue|manager)(/|$)":
-              {
-                target: apiTarget,
-                changeOrigin: true,
-              },
+            [`^/(${apiPrefixes.join("|")})(/|$)`]: {
+              target: apiTarget,
+              changeOrigin: true,
+            },
           }
         : undefined,
     },

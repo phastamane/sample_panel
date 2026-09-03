@@ -13,6 +13,10 @@ import { MainLayout } from "@/widgets/layouts/main-layout";
 import { BoxersPage } from "@/pages/boxer-page";
 import { StreamsPage } from "@/pages/stream-page";
 import { MatchPage } from "@/pages/match-page";
+import { RoundPage } from "@/pages/round-page";
+import { VenuePage } from "@/pages/venue-page";
+import { TournamentPage } from "@/pages/tournament-page";
+// CLI_INJECT_IMPORT
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -72,9 +76,35 @@ const matchesRoute = createRoute({
   path: "/matches",
   component: MatchPage,
 });
+const roundsRoute = createRoute({
+  getParentRoute: () => protectedLayoutRoute,
+  path: "/rounds",
+  component: RoundPage,
+});
+
+const venueRoute = createRoute({
+  getParentRoute: () => protectedLayoutRoute,
+  path: "/venues",
+  component: VenuePage,
+});
+const tournamentsRoute = createRoute({
+  getParentRoute: () => protectedLayoutRoute,
+  path: "/tournaments",
+  component: TournamentPage,
+});
+// CLI_INJECT_ROUTE
 const routeTree = rootRoute.addChildren([
   loginRoute,
-  protectedLayoutRoute.addChildren([indexRoute, boxersRoute, streamsRoute, matchesRoute]),
+  protectedLayoutRoute.addChildren([
+    indexRoute,
+    boxersRoute,
+    streamsRoute,
+    matchesRoute,
+    roundsRoute,
+    venueRoute,
+    tournamentsRoute,
+    // CLI_INJECT_TREE
+  ]),
 ]);
 
 export const router = createRouter({

@@ -1,5 +1,6 @@
 import { LogoutButton } from "@/features/auth/logout/ui/logout-button";
 import { ENTITY_NAVIGATION } from "@/shared/config/navigation";
+import { ThemeToggle } from "@/shared/ui/theme-toggle";
 import { Link } from "@tanstack/react-router";
 
 function Sidebar() {
@@ -22,7 +23,8 @@ function Sidebar() {
         ))}
       </nav>
 
-      <div className="mt-auto pt-4 border-t">
+      <div className="mt-auto space-y-2 border-t pt-4">
+        <ThemeToggle />
         <LogoutButton />
       </div>
     </aside>

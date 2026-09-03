@@ -58,9 +58,7 @@ export default function DynamicTable<
 
         {config.form && (
           <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-            <DialogTrigger render={<Button />}>
-              <Button>Создать</Button>
-            </DialogTrigger>
+            <DialogTrigger render={<Button />}>Создать</DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle>Добавить запись ({config.entityName})</DialogTitle>
